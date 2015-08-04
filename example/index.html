@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Video.js Chapters</title>
+
+    <link href="bower_components/video.js/dist/video-js/video-js.css" rel="stylesheet">
+    <link href="dist/videojs.chapters.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <video id="player" class="video-js vjs-default-skin vjs-big-play-centered" height="300" width="600" controls>
+        <source src="asset/video/oceans-clip.mp4" type='video/mp4' />
+
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+    </video>
+
+    <script src="bower_components/video.js/dist/video-js/video.dev.js"></script>
+    <script src="dist/videojs.chapters.js"></script>
+    <script>
+        // initialize the plugin
+        videojs('player').ready(function() {
+            this.chapters({
+                label:    'English',
+                language: 'en',
+                src:      'asset/vtt/chapters.vtt'
+            });
+        });
+    </script>
+</body>
+
+</html>

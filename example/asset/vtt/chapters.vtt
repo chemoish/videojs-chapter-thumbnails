@@ -1,0 +1,36 @@
+WEBVTT
+
+Chapter 1
+00:00:00.000 --> 00:00:10.000
+{
+    "title":"Chapter 1",
+    "image":"asset/img/chapter_1.png"
+}
+
+Chapter 2
+00:00:10.000 --> 00:00:20.000
+{
+    "title":"Chapter 2",
+    "image":"asset/img/chapter_2.png"
+}
+
+Chapter 3
+00:00:20.000 --> 00:00:30.000
+{
+    "title":"Chapter 3",
+    "image":"asset/img/chapter_3.png"
+}
+
+Chapter 4
+00:00:30.000 --> 00:00:40.000
+{
+    "title":"Chapter 4",
+    "image":"asset/img/chapter_4.png"
+}
+
+Chapter 5
+00:00:40.000 --> 00:00:46.000
+{
+    "title":"Chapter 5",
+    "image":"asset/img/chapter_5.png"
+}

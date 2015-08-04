@@ -1,0 +1,19 @@
+{
+  "name": "videojs-chapters",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chemoish/videojs-chapters",
+  "authors": [
+    "Carey Hinoki <carey.hinoki@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "video.js": "git://github.com/videojs/video.js#4.12.12"
+  }
+}
