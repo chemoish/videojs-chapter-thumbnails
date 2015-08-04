@@ -2,6 +2,8 @@
 
 > Video.js plugin for supporting **WebVTT** chapter thumbnails.
 
+![Example](https://github.com/chemoish/videojs-chapters/blob/master/example/asset/img/example.png)
+
 ## Usage
 
 ### Include
