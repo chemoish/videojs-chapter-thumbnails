@@ -1,5 +1,5 @@
 {
-  "name": "videojs-chapters",
+  "name": "videojs-chapter-thumbnails",
   "version": "0.0.0",
   "description": "Video.js plugin for supporting chapter thumbnails",
   "main": "index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/chemoish/videojs-chapters.git"
+    "url": "https://github.com/chemoish/videojs-chapter-thumbnails.git"
   },
   "author": "Carey Hinoki <carey.hinoki@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chemoish/videojs-chapters/issues"
+    "url": "https://github.com/chemoish/videojs-chapter-thumbnails/issues"
   },
-  "homepage": "https://github.com/chemoish/videojs-chapters",
+  "homepage": "https://github.com/chemoish/videojs-chapter-thumbnails",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-babel": "^5.0.1",

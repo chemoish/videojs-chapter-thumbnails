@@ -1,8 +1,8 @@
-# videojs-chapters
+# videojs-chapter-thumbnails
 
 > Video.js plugin for supporting **WebVTT** chapter thumbnails.
 
-![Example](https://github.com/chemoish/videojs-chapters/blob/master/example/asset/img/example.png)
+![Example](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/example/asset/img/example.png)
 
 ## Usage
 
@@ -10,9 +10,9 @@
 
 ```html
 <!-- optional: default styles -->
-<link href="/path/to/videojs.chapters.css" rel="stylesheet">
+<link href="/path/to/videojs.chapter-thumbnails.css" rel="stylesheet">
 
-<script src="/path/to/videojs.chapters.min.js"></script>
+<script src="/path/to/videojs.chapter-thumbnails.min.js"></script>
 ```
 
 ### Enable
@@ -20,7 +20,7 @@
 ```js
 vjs('player_id', {
     plugins: {
-        chapters: {
+        chapter_thumbnails: {
             label:    'English',
             language: 'en',
             src:      '/path/to/chapters.vtt'
@@ -30,7 +30,7 @@ vjs('player_id', {
 
 // or…
 
-vjs('player_id').chapters({
+vjs('player_id').chapter_thumbnails({
     label:    'English',
     language: 'en',
     src:      '/path/to/chapters.vtt'
@@ -58,4 +58,4 @@ grunt
 
 ## License
 
-Code licensed under [The MIT License](https://github.com/chemoish/videojs-chapters/blob/master/README.md).
+Code licensed under [The MIT License](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/README.md).

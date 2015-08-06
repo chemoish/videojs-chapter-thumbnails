@@ -6,7 +6,7 @@
     <title>Video.js Chapters</title>
 
     <link href="bower_components/video.js/dist/video-js/video-js.css" rel="stylesheet">
-    <link href="dist/videojs.chapters.min.css" rel="stylesheet">
+    <link href="dist/videojs.chapter-thumbnails.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -20,11 +20,11 @@
     </video>
 
     <script src="bower_components/video.js/dist/video-js/video.dev.js"></script>
-    <script src="dist/videojs.chapters.js"></script>
+    <script src="dist/videojs.chapter-thumbnails.js"></script>
     <script>
         // initialize the plugin
         videojs('player').ready(function() {
-            this.chapters({
+            this.chapter_thumbnails({
                 label:    'English',
                 language: 'en',
                 src:      'asset/vtt/chapters.vtt'

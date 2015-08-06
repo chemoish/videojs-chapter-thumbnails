@@ -1,7 +1,7 @@
 {
-  "name": "videojs-chapters",
+  "name": "videojs-chapter-thumbnails",
   "version": "0.0.0",
-  "homepage": "https://github.com/chemoish/videojs-chapters",
+  "homepage": "https://github.com/chemoish/videojs-chapter-thumbnails",
   "authors": [
     "Carey Hinoki <carey.hinoki@gmail.com>"
   ],

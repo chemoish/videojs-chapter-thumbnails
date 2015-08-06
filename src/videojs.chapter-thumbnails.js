@@ -63,7 +63,7 @@
      * @example
      * vjs('player_id', {
      *     plugins: {
-     *         chapters: {
+     *         chapter_thumbnails: {
      *             label:    'English',
      *             language: 'en',
      *             src:      'chapters.vtt'
@@ -71,7 +71,7 @@
      *     }
      * });
      *
-     * vjs('player_id').chapters({
+     * vjs('player_id').chapter_thumbnails({
      *     label:    'English',
      *     language: 'en',
      *     src:      'chapters.vtt'
@@ -306,7 +306,7 @@
     ChapterThumbnails.defineMenuButton();
     ChapterThumbnails.defineMenuItem();
 
-    vjs.plugin('chapters', function chapters(options) {
+    vjs.plugin('chapter_thumbnails', function chapter_thumbnails(options) {
         new ChapterThumbnails(this, options);
     });
 }(window.videojs, void(0)));

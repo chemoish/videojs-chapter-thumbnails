@@ -2,7 +2,7 @@ module.exports = function (grunt) {
     grunt.config('babel', {
         dist: {
             files: {
-                'dist/videojs.chapters.js': 'src/videojs.chapters.js'
+                'dist/videojs.chapter-thumbnails.js': 'src/videojs.chapter-thumbnails.js'
             }
         }
     });
