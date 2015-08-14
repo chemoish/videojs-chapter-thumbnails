@@ -270,7 +270,7 @@
                         current_time = player.currentTime(),
                         text_track   = options.text_track;
 
-                    let cue_text = JSON.parse(cue.text);
+                    let cue_text = JSON.parse(cue.text || '{}');
 
                     options.label = vjs.createEl('div', {
                         className: 'vjs-chapters-thumbnails-item',
