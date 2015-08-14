@@ -198,7 +198,9 @@
                     let text_track = this.player().textTracks().getTrackById(CONFIGURATION.CHAPTER_THUMBNAILS_TRACK.ID);
 
                     // wait for text track to load so cues become available
-                    document.getElementById(CONFIGURATION.CHAPTER_THUMBNAILS_TRACK.ID).addEventListener('load', function (event) {
+                    let text_track_element = document.getElementById(CONFIGURATION.CHAPTER_THUMBNAILS_TRACK.ID);
+
+                    text_track_element.addEventListener('load', function (event) {
                         for (var i = 0, length = text_track.cues.length; i < length; i++) {
                             let cue = text_track.cues[i];
 
@@ -217,6 +219,20 @@
                         }
 
                         this.player().addChild(this.menu);
+                    }.bind(this), false);
+
+                    text_track_element.addEventListener('error', function (event) {
+                        let control_bar = this.player().getChild(CONFIGURATION.CONTROL_BAR);
+
+                        let component = control_bar.getChild(CONFIGURATION.CHAPTER_THUMBNAILS_MENU_BUTTON.NAME);
+
+                        if (component === undefined) {
+                            return;
+                        }
+
+                        component.dispose();
+
+                        control_bar.removeChild(CONFIGURATION.CHAPTER_THUMBNAILS_MENU_BUTTON.NAME);
                     }.bind(this), false);
 
                     return this.menu;
