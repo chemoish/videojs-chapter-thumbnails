@@ -219,7 +219,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         var text_track = this.player().textTracks().getTrackById(CONFIGURATION.CHAPTER_THUMBNAILS_TRACK.ID);
 
                         // wait for text track to load so cues become available
-                        document.getElementById(CONFIGURATION.CHAPTER_THUMBNAILS_TRACK.ID).addEventListener('load', (function (event) {
+                        var text_track_element = document.getElementById(CONFIGURATION.CHAPTER_THUMBNAILS_TRACK.ID);
+
+                        text_track_element.addEventListener('load', (function (event) {
                             for (var i = 0, length = text_track.cues.length; i < length; i++) {
                                 var cue = text_track.cues[i];
 
@@ -238,6 +240,20 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             }
 
                             this.player().addChild(this.menu);
+                        }).bind(this), false);
+
+                        text_track_element.addEventListener('error', (function (event) {
+                            var control_bar = this.player().getChild(CONFIGURATION.CONTROL_BAR);
+
+                            var component = control_bar.getChild(CONFIGURATION.CHAPTER_THUMBNAILS_MENU_BUTTON.NAME);
+
+                            if (component === undefined) {
+                                return;
+                            }
+
+                            component.dispose();
+
+                            control_bar.removeChild(CONFIGURATION.CHAPTER_THUMBNAILS_MENU_BUTTON.NAME);
                         }).bind(this), false);
 
                         return this.menu;
@@ -277,7 +293,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                             current_time = player.currentTime(),
                             text_track = options.text_track;
 
-                        var cue_text = JSON.parse(cue.text);
+                        var cue_text = JSON.parse(cue.text || '{}');
 
                         options.label = vjs.createEl('div', {
                             className: 'vjs-chapters-thumbnails-item',
