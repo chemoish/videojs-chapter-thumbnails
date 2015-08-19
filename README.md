@@ -49,11 +49,8 @@ vjs('player_id').chapter_thumbnails({
 
 ```bash
 npm install -g grunt-cli
-npm install -g bower
 
 npm install
-
-bower install
 
 grunt
 ```
