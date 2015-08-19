@@ -22,6 +22,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', 'Running development environment…', [
         'build',
         'connect',
+        'karma:unit:start',
         'watch'
     ]);
 
@@ -35,5 +36,9 @@ module.exports = function (grunt) {
         'build',
         'copy:dist',
         'webpack:dist'
+    ]);
+
+    grunt.registerTask('test', 'Running tests…', [
+        'karma:ci'
     ]);
 };

@@ -10,6 +10,17 @@ module.exports = function (grunt) {
             ]
         },
 
+        js: {
+            files: [
+                'src/*.js',
+                'test/*.js'
+            ],
+
+            tasks: [
+                'karma:unit:run'
+            ]
+        },
+
         grunt: {
             files: [
                 'Gruntfile.js',
