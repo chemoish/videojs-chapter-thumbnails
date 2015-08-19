@@ -193,7 +193,7 @@
 	        this.buttonText = 'Chapters';
 	        this.className = 'vjs-chapter-thumbnails-button vjs-chapters-button';
 
-	        vjs.MenuButton.call(this, player, options);
+	        videojs.MenuButton.call(this, player, options);
 
 	        this.el().setAttribute('aria-label', 'Chapters Menu');
 	    },
@@ -246,6 +246,10 @@
 	    createItems: function createItems(text_track) {
 	        var items = [];
 
+	        if (!text_track || text_track.constructor.name !== 'TextTrack') {
+	            return items;
+	        }
+
 	        for (var i = 0, _length2 = text_track.cues.length; i < _length2; i++) {
 	            var cue = text_track.cues[i];
 
@@ -297,7 +301,7 @@
 
 	var Menu = videojs.Menu.extend({
 	    init: function init(player, options) {
-	        vjs.Menu.call(this, player, options);
+	        videojs.Menu.call(this, player, options);
 
 	        this.el().id = 'vjs_chapter_thumbnails_menu';
 
@@ -402,7 +406,7 @@
 	        arg = arguments[i];
 
 	        for (k in arg) {
-	            if (arg.hasOwnProperty(k)) {
+	            if (arg.hasOwnProperty(k) && arg[k] !== undefined) {
 	                obj[k] = arg[k];
 	            }
 	        }
@@ -410,8 +414,6 @@
 
 	    return obj;
 	}
-
-	;
 
 /***/ }
 /******/ ]);
