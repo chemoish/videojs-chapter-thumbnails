@@ -20,20 +20,20 @@ module.exports = function (grunt) {
     grunt.loadTasks('grunt');
 
     grunt.registerTask('default', 'Running development environment…', [
-        'build:development',
+        'build',
         'connect',
         'watch'
     ]);
 
-    grunt.registerTask('build:development', 'Running development build tasks…', [
-        'babel:dist',
-        'cssmin:dist'
+    grunt.registerTask('build', 'Running development build tasks…', [
+        'webpack:development',
+        'cssmin:development'
     ]);
 
-    grunt.registerTask('build:production', 'Running production build tasks…', [
+    grunt.registerTask('deploy', 'Running production build tasks…', [
         'clean:dist',
-        'babel:dist',
-        'cssmin:dist',
-        'uglify:dist'
+        'build',
+        'copy:dist',
+        'webpack:dist'
     ]);
 };

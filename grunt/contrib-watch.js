@@ -6,7 +6,7 @@ module.exports = function (grunt) {
             ],
 
             tasks: [
-                'cssmin:dist'
+                'cssmin:development'
             ]
         },
 
@@ -14,16 +14,6 @@ module.exports = function (grunt) {
             files: [
                 'Gruntfile.js',
                 'grunt/*.js'
-            ]
-        },
-
-        js: {
-            files: [
-                'src/*.js'
-            ],
-
-            tasks: [
-                'babel:dist'
             ]
         },
 

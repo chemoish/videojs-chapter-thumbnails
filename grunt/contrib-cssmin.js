@@ -1,8 +1,8 @@
 module.exports = function (grunt) {
     grunt.config('cssmin', {
-        dist: {
+        development: {
             files: {
-                'dist/videojs.chapter-thumbnails.min.css': 'src/videojs.chapter-thumbnails.css'
+                'tmp/videojs.chapter-thumbnails.min.css': 'src/videojs.chapter-thumbnails.css'
             }
         }
     });

@@ -1,5 +1,7 @@
 # videojs-chapter-thumbnails
 
+![https://travis-ci.org/chemoish/videojs-chapter-thumbnails.svg](https://travis-ci.org/chemoish/videojs-chapter-thumbnails.svg)
+
 > Video.js plugin for supporting **WebVTT** chapter thumbnails.
 
 ![Example](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/example/asset/img/example.png)
