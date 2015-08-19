@@ -16,7 +16,7 @@ export let MenuButton = videojs.MenuButton.extend({
         this.buttonText = 'Chapters';
         this.className  = 'vjs-chapter-thumbnails-button vjs-chapters-button';
 
-        vjs.MenuButton.call(this, player, options);
+        videojs.MenuButton.call(this, player, options);
 
         this.el().setAttribute('aria-label','Chapters Menu');
     },

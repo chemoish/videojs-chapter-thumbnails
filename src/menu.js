@@ -8,7 +8,7 @@ export const MENU_NAME = 'ChapterThumbnailMenu';
 
 export let Menu = videojs.Menu.extend({
     init: function (player, options) {
-        vjs.Menu.call(this, player, options);
+        videojs.Menu.call(this, player, options);
 
         this.el().id = 'vjs_chapter_thumbnails_menu';
 
