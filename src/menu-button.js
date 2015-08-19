@@ -67,6 +67,10 @@ export let MenuButton = videojs.MenuButton.extend({
     createItems(text_track) {
         let items = [];
 
+        if (!text_track || text_track.constructor.name !== 'TextTrack') {
+            return items;
+        }
+
         for (let i = 0, length = text_track.cues.length; i < length; i++) {
             let cue = text_track.cues[i];
 
