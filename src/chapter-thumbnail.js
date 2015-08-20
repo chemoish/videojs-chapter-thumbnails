@@ -42,7 +42,8 @@ const defaults = {
  *     src:      'chapters.vtt'
  * });
  *
- * @param {Object} options
+ * @param {Object} player VideoJS player
+ * @param {Object} options={}
  * @param {Object} [options.label]
  * @param {Object} [options.language]
  * @param {Object} options.src
@@ -50,6 +51,7 @@ const defaults = {
 
 class ChapterThumbnails {
     constructor(player, options) {
+    constructor(player, options = {}) {
         this.player = player;
         this.options = options;
 
@@ -61,6 +63,7 @@ class ChapterThumbnails {
 
         let menu_button = control_bar.getChild(MENU_BUTTON_NAME);
 
+        // remove existing menu button
         if (menu_button != null) {
             control_bar.removeChild(menu_button);
 
@@ -80,6 +83,7 @@ class ChapterThumbnails {
     addTextTrack(player, options) {
         let current_text_track = player.textTracks().getTrackById(TRACK_ID);
 
+        // remove existing track
         if (current_text_track !== undefined) {
             player.removeRemoteTextTrack(current_text_track);
         }

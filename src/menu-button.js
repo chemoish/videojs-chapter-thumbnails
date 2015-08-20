@@ -9,10 +9,15 @@ export const MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
  * @description
  * Define the chapter thumbnails menu button component.
  * Create the chapter thumbnails menu and attach it to the player.
+ *
+ * @param {Object} player VideoJS player
+ * @param {Object} options={}
+ * @param {Object} options.name Component name
+ * @param {Object} options.text_track
  */
 
 export let MenuButton = videojs.MenuButton.extend({
-    init: function (player, options) {
+    init: function (player, options = {}) {
         this.buttonText = 'Chapters';
         this.className  = 'vjs-chapter-thumbnails-button vjs-chapters-button';
 
@@ -32,7 +37,7 @@ export let MenuButton = videojs.MenuButton.extend({
             name: MENU_NAME
         });
 
-        let text_track_element = document.getElementById(TRACK_ID);
+        let text_track_element = this.options().text_track;
 
         text_track_element.addEventListener('load', (event) => {
             let text_track = this.player().textTracks().getTrackById(TRACK_ID);

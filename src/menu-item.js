@@ -2,10 +2,16 @@
  * @name Chapter Thumnails Menu Item
  * @description
  * Define the chapter thumbnails menu item component.
+ *
+ * @param {Object} player VideoJS player
+ * @param {Object} options={}
+ * @param {Object} options.cue
+ * @param {Object} options.text_track
  */
 
 export default videojs.MenuItem.extend({
-    init: function (player, options) {
+    init: function (player, options = {}) {
+
         let {
             cue,
             text_track

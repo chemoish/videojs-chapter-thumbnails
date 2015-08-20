@@ -4,11 +4,11 @@
 
 > Video.js plugin for supporting **WebVTT** chapter thumbnails.
 
-![Example](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/example/asset/img/example.png)
+![Example](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/example/asset/img/example.png?raw=true)
 
-## Usage
+## Getting Started
 
-### Include
+#### Include
 
 ```html
 <!-- optional: default styles -->
@@ -17,35 +17,50 @@
 <script src="/path/to/videojs.chapter-thumbnails.min.js"></script>
 ```
 
-### Enable
+#### Enable
 
 ```js
-vjs('player_id', {
-    plugins: {
-        chapter_thumbnails: {
-            label:    'English',
-            language: 'en',
-            src:      '/path/to/chapters.vtt'
-        }
-    }
-});
-
-// or…
-
-vjs('player_id').chapter_thumbnails({
-    label:    'English',
-    language: 'en',
-    src:      '/path/to/chapters.vtt'
+videojs('player_id').chapter_thumbnails({
+    src: '/path/to/chapters.vtt'
 });
 ```
 
+> Note: There are multiple ways to enable plugins. For more information, please visit [Video.js](https://github.com/videojs/video.js).
+
 ## Options
 
-- `label` (string): Label for the track element (default: English).
-- `language` (string): Language for the track element (default: en).
-- `src` (string): Src for the track element.
+#### label
 
-## Example
+Type: `String`  
+Default: `English`
+
+#### language
+
+Type: `String`  
+Default: `en`
+
+#### src
+
+Type: `String`
+
+```
+
+## Example WebVTT file
+
+> Define chapters plugin by specifying a [WebVTT](http://dev.w3.org/html5/webvtt/) spec.
+
+```
+WEBVTT
+
+Chapter 1
+00:00:00.000 --> 00:00:10.000
+{
+    "title":"Chapter 1",
+    "image":"asset/img/chapter_1.png"
+}
+```
+
+## Contributing + Example
 
 ```bash
 npm install -g grunt-cli
