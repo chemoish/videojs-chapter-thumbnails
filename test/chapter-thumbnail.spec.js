@@ -1,4 +1,4 @@
-import 'video.js/dist/video-js/video.dev.js';
+import 'video.js';
 
 import ChapterThumbnails from '../src/chapter-thumbnail';
 
