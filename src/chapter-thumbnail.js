@@ -47,6 +47,7 @@ const defaults = {
  * @param {Object} [options.label]
  * @param {Object} [options.language]
  * @param {Object} options.src
+ * @param {Object} [options.template]
  */
 
 export default class ChapterThumbnails {
@@ -71,9 +72,11 @@ export default class ChapterThumbnails {
 
         let text_track = this.addTextTrack();
 
+        let {template} = this.options;
 
         menu_button = new MenuButton(this.player, {
             name: MENU_BUTTON_NAME,
+            template,
             text_track
         });
 

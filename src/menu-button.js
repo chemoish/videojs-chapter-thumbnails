@@ -13,6 +13,7 @@ export const MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
  * @param {Object} player VideoJS player
  * @param {Object} options={}
  * @param {Object} options.name Component name
+ * @param {Object} [options.template]
  * @param {Object} options.text_track
  */
 
@@ -76,11 +77,14 @@ export let MenuButton = videojs.MenuButton.extend({
             return items;
         }
 
+        let {template} = this.options();
+
         for (let i = 0, length = text_track.cues.length; i < length; i++) {
             let cue = text_track.cues[i];
 
             items.push(new MenuItem(this.player(), {
                 cue,
+                template,
                 text_track
             }));
         }

@@ -43,7 +43,19 @@ Default: `en`
 
 Type: `String`
 
+#### template
+
+Type: `String`  
+Default:
+
+```html
+<div class="vjs-chapters-thumbnails-item">
+    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
+    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
+</div>
 ```
+
+Provides for custom templating. Utilize `{{key}}` to target values in your WebVTT file.
 
 ## Example WebVTT file
 
