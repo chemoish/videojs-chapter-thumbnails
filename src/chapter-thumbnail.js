@@ -44,8 +44,8 @@ const defaults = {
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} [options.label]
- * @param {Object} [options.language]
+ * @param {Object} [options.label=English]
+ * @param {Object} [options.language=en]
  * @param {Object} options.src
  * @param {Object} [options.template]
  */
