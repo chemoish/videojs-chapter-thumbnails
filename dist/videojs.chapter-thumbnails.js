@@ -46,6 +46,10 @@
 
 	'use strict';
 
+	Object.defineProperty(exports, '__esModule', {
+	    value: true
+	});
+
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
@@ -95,39 +99,47 @@
 	 *     src:      'chapters.vtt'
 	 * });
 	 *
-	 * @param {Object} options
+	 * @param {Object} player VideoJS player
+	 * @param {Object} options={}
 	 * @param {Object} [options.label]
 	 * @param {Object} [options.language]
 	 * @param {Object} options.src
+	 * @param {Object} [options.template]
 	 */
 
 	var ChapterThumbnails = (function () {
-	    function ChapterThumbnails(player, options) {
+	    function ChapterThumbnails(player) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
 	        _classCallCheck(this, ChapterThumbnails);
 
 	        this.player = player;
 	        this.options = options;
 
-	        this.addComponent(player, options);
+	        this.defaults = defaults;
 	    }
 
 	    _createClass(ChapterThumbnails, [{
 	        key: 'addComponent',
-	        value: function addComponent(player, options) {
-	            var control_bar = player.getChild('controlBar');
+	        value: function addComponent() {
+	            var control_bar = this.player.getChild('controlBar');
 
 	            var menu_button = control_bar.getChild(_menuButton.MENU_BUTTON_NAME);
 
+	            // remove existing menu button
 	            if (menu_button != null) {
 	                control_bar.removeChild(menu_button);
 
 	                menu_button.dispose();
 	            }
 
-	            var text_track = this.addTextTrack(player, options);
+	            var text_track = this.addTextTrack();
 
-	            menu_button = new _menuButton.MenuButton(player, {
+	            var template = this.options.template;
+
+	            menu_button = new _menuButton.MenuButton(this.player, {
 	                name: _menuButton.MENU_BUTTON_NAME,
+	                template: template,
 	                text_track: text_track
 	            });
 
@@ -135,28 +147,34 @@
 	        }
 	    }, {
 	        key: 'addTextTrack',
-	        value: function addTextTrack(player, options) {
-	            var current_text_track = player.textTracks().getTrackById(_track.TRACK_ID);
+	        value: function addTextTrack() {
+	            var current_text_track = this.player.textTracks().getTrackById(_track.TRACK_ID);
 
+	            // remove existing track
 	            if (current_text_track !== undefined) {
-	                player.removeRemoteTextTrack(current_text_track);
+	                this.player.removeRemoteTextTrack(current_text_track);
 	            }
 
-	            var text_track = (0, _helper.extend)(defaults, options, {
+	            var text_track = (0, _helper.extend)(this.defaults, this.options, {
 	                kind: 'metadata',
 	                id: _track.TRACK_ID
 	            });
 
-	            return player.addRemoteTextTrack(text_track);
+	            return this.player.addRemoteTextTrack(text_track);
 	        }
 	    }]);
 
 	    return ChapterThumbnails;
 	})();
 
+	exports['default'] = ChapterThumbnails;
+
 	videojs.plugin('chapter_thumbnails', function chapter_thumbnails(options) {
-	    new ChapterThumbnails(this, options);
+	    var chapter_thumbnail = new ChapterThumbnails(this, options);
+
+	    chapter_thumbnail.addComponent();
 	});
+	module.exports = exports['default'];
 
 /***/ },
 /* 1 */
@@ -186,10 +204,18 @@
 	 * @description
 	 * Define the chapter thumbnails menu button component.
 	 * Create the chapter thumbnails menu and attach it to the player.
+	 *
+	 * @param {Object} player VideoJS player
+	 * @param {Object} options={}
+	 * @param {Object} options.name Component name
+	 * @param {Object} [options.template]
+	 * @param {Object} options.text_track
 	 */
 
 	var MenuButton = videojs.MenuButton.extend({
-	    init: function init(player, options) {
+	    init: function init(player) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
 	        this.buttonText = 'Chapters';
 	        this.className = 'vjs-chapter-thumbnails-button vjs-chapters-button';
 
@@ -211,7 +237,7 @@
 	            name: _menu.MENU_NAME
 	        });
 
-	        var text_track_element = document.getElementById(_track.TRACK_ID);
+	        var text_track_element = this.options().text_track;
 
 	        text_track_element.addEventListener('load', function (event) {
 	            var text_track = _this.player().textTracks().getTrackById(_track.TRACK_ID);
@@ -250,11 +276,16 @@
 	            return items;
 	        }
 
+	        var _options = this.options();
+
+	        var template = _options.template;
+
 	        for (var i = 0, _length2 = text_track.cues.length; i < _length2; i++) {
 	            var cue = text_track.cues[i];
 
 	            items.push(new _menuItem2['default'](this.player(), {
 	                cue: cue,
+	                template: template,
 	                text_track: text_track
 	            }));
 	        }
@@ -297,10 +328,16 @@
 	 * @name Chapter Thumbnails Menu
 	 * @description
 	 * Define the chapter thumbnails menu component.
+	 *
+	 * @param {Object} player VideoJS player
+	 * @param {Object} options={}
+	 * @param {Object} options.name Component name
 	 */
 
 	var Menu = videojs.Menu.extend({
-	    init: function init(player, options) {
+	    init: function init(player) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
 	        videojs.Menu.call(this, player, options);
 
 	        this.el().id = 'vjs_chapter_thumbnails_menu';
@@ -315,30 +352,41 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	/**
-	 * @name Chapter Thumnails Menu Item
-	 * @description
-	 * Define the chapter thumbnails menu item component.
-	 */
-
 	'use strict';
 
 	Object.defineProperty(exports, '__esModule', {
 	    value: true
 	});
+	var defaults = {
+	    template: '\n<div class="vjs-chapters-thumbnails-item">\n    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />\n    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>\n</div>\n'
+	};
+
+	/**
+	 * @name Chapter Thumnails Menu Item
+	 * @description
+	 * Define the chapter thumbnails menu item component.
+	 *
+	 * @param {Object} player VideoJS player
+	 * @param {Object} options={}
+	 * @param {Object} options.cue
+	 * @param {Object} [options.template]
+	 * @param {Object} options.text_track
+	 */
+
 	exports['default'] = videojs.MenuItem.extend({
-	    init: function init(player, options) {
+	    init: function init(player) {
+	        var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+
+	        this.options(options);
+
+	        this.defaults = defaults;
+
 	        var cue = options.cue;
 	        var text_track = options.text_track;
 
 	        var current_time = player.currentTime();
 
-	        var cue_text = JSON.parse(cue.text || '{}');
-
-	        options.label = videojs.createEl('div', {
-	            className: 'vjs-chapters-thumbnails-item',
-	            innerHTML: ['<img class="vjs-chapters-thumbnails-item-image" src="' + cue_text.image + '" />', '<span class="vjs-chapters-thumbnails-item-title">' + cue_text.title + '</span>'].join('')
-	        }).outerHTML;
+	        options.label = this.template(cue);
 
 	        options.select = cue.startTime <= current_time && current_time < cue.endTime;
 
@@ -365,6 +413,20 @@
 
 	    onCueChange: function onCueChange(event) {
 	        this.update();
+	    },
+
+	    template: function template(cue) {
+	        var template = this.options().template || this.defaults.template;
+
+	        var cue_text = JSON.parse(cue.text || '{}');
+
+	        for (var key in cue_text) {
+	            if (cue_text.hasOwnProperty(key)) {
+	                template = template.replace(new RegExp('{{' + key + '}}', 'ig'), cue_text[key]);
+	            }
+	        }
+
+	        return template;
 	    },
 
 	    update: function update() {
