@@ -1,6 +1,6 @@
-import 'video.js';
+import 'video.js/dist/video-js/video.dev.js';
 
-import '../src/chapter-thumbnail';
+import ChapterThumbnails from '../src/chapter-thumbnail';
 
 import {TRACK_ID} from '../src/track';
 
@@ -27,7 +27,9 @@ describe('chapter-thumbnail.js', function () {
     });
 
     it('should initialize with defaults.', function () {
-        player.chapter_thumbnails();
+        let chapter_thumbnail = new ChapterThumbnails(player);
+
+        chapter_thumbnail.addTextTrack();
 
         let track = player.textTracks().getTrackById(TRACK_ID);
 
@@ -39,10 +41,12 @@ describe('chapter-thumbnail.js', function () {
     });
 
     it('should initialize with options.', function () {
-        player.chapter_thumbnails({
+        let chapter_thumbnail = new ChapterThumbnails(player, {
             label: 'French',
             language: 'fr'
         });
+
+        chapter_thumbnail.addTextTrack();
 
         let track = player.textTracks().getTrackById(TRACK_ID);
 
@@ -53,7 +57,9 @@ describe('chapter-thumbnail.js', function () {
     it('should contain one textTrack', function () {
         expect(player.textTracks().length).toBe(0);
 
-        player.chapter_thumbnails();
+        let chapter_thumbnail = new ChapterThumbnails(player);
+
+        chapter_thumbnail.addTextTrack();
 
         expect(player.textTracks().length).toBe(1);
     });

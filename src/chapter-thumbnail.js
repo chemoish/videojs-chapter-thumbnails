@@ -49,17 +49,16 @@ const defaults = {
  * @param {Object} options.src
  */
 
-class ChapterThumbnails {
-    constructor(player, options) {
+export default class ChapterThumbnails {
     constructor(player, options = {}) {
         this.player = player;
         this.options = options;
 
-        this.addComponent(player, options);
+        this.defaults = defaults;
     }
 
-    addComponent(player, options) {
-        let control_bar = player.getChild('controlBar');
+    addComponent() {
+        let control_bar = this.player.getChild('controlBar');
 
         let menu_button = control_bar.getChild(MENU_BUTTON_NAME);
 
@@ -70,9 +69,10 @@ class ChapterThumbnails {
             menu_button.dispose();
         }
 
-        let text_track = this.addTextTrack(player, options);
+        let text_track = this.addTextTrack();
 
-        menu_button = new MenuButton(player, {
+
+        menu_button = new MenuButton(this.player, {
             name: MENU_BUTTON_NAME,
             text_track
         });
@@ -80,23 +80,25 @@ class ChapterThumbnails {
         control_bar.addChild(menu_button);
     }
 
-    addTextTrack(player, options) {
-        let current_text_track = player.textTracks().getTrackById(TRACK_ID);
+    addTextTrack() {
+        let current_text_track = this.player.textTracks().getTrackById(TRACK_ID);
 
         // remove existing track
         if (current_text_track !== undefined) {
-            player.removeRemoteTextTrack(current_text_track);
+            this.player.removeRemoteTextTrack(current_text_track);
         }
 
-        let text_track = extend(defaults, options, {
+        let text_track = extend(this.defaults, this.options, {
             kind: 'metadata',
             id:   TRACK_ID
         });
 
-        return player.addRemoteTextTrack(text_track);
+        return this.player.addRemoteTextTrack(text_track);
     }
 }
 
 videojs.plugin('chapter_thumbnails', function chapter_thumbnails(options) {
-    new ChapterThumbnails(this, options);
+    let chapter_thumbnail = new ChapterThumbnails(this, options);
+
+    chapter_thumbnail.addComponent();
 });
