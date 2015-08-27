@@ -26,7 +26,7 @@ const defaults = {
  * }
  *
  * @example
- * vjs('player_id', {
+ * videojs('player_id', {
  *     plugins: {
  *         chapter_thumbnails: {
  *             label:    'English',
@@ -36,7 +36,7 @@ const defaults = {
  *     }
  * });
  *
- * vjs('player_id').chapter_thumbnails({
+ * videojs('player_id').chapter_thumbnails({
  *     label:    'English',
  *     language: 'en',
  *     src:      'chapters.vtt'

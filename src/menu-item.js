@@ -48,7 +48,7 @@ export default videojs.MenuItem.extend({
     /**
      * @name On Click
      * @description
-     * Defined by vjs.MenuItem
+     * Defined by videojs.MenuItem
      */
 
     onClick: function (event) {

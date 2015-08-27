@@ -95,7 +95,7 @@ export let MenuButton = videojs.MenuButton.extend({
     /**
      * @name On Click
      * @description
-     * Defined by vjs.MenuButton
+     * Defined by videojs.MenuButton
      */
 
     onClick: function (event) {
