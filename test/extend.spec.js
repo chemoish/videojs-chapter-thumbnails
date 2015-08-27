@@ -1,6 +1,6 @@
-import {extend} from '../src/helper.js';
+import extend from '../src/extend';
 
-describe('helper.js', function () {
+describe('extend.js', function () {
     describe(':: extend()', function () {
         var mock = {};
 

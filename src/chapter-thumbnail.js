@@ -1,7 +1,7 @@
 import {MenuButton, MENU_BUTTON_NAME} from './menu-button';
 import {TRACK_ID} from './track';
 
-import {extend} from './helper';
+import extend from './extend';
 
 const defaults = {
     label:    'English',

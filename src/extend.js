@@ -1,4 +1,4 @@
-export function extend(obj) {
+export default function extend(obj) {
     var arg, i, k;
 
     for (i = 1; i < arguments.length; i++) {
