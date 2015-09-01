@@ -92,8 +92,9 @@ export default class ChapterThumbnails {
         }
 
         let text_track = extend(this.defaults, this.options, {
-            kind: 'metadata',
-            id:   TRACK_ID
+            default: true,
+            kind:    'metadata',
+            id:      TRACK_ID
         });
 
         return this.player.addRemoteTextTrack(text_track);
