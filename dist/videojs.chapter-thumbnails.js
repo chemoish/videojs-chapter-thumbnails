@@ -52,13 +52,17 @@
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
 	var _menuButton = __webpack_require__(1);
 
 	var _track = __webpack_require__(4);
 
-	var _helper = __webpack_require__(5);
+	var _extend = __webpack_require__(5);
+
+	var _extend2 = _interopRequireDefault(_extend);
 
 	var defaults = {
 	    label: 'English',
@@ -83,7 +87,7 @@
 	 * }
 	 *
 	 * @example
-	 * vjs('player_id', {
+	 * videojs('player_id', {
 	 *     plugins: {
 	 *         chapter_thumbnails: {
 	 *             label:    'English',
@@ -93,7 +97,7 @@
 	 *     }
 	 * });
 	 *
-	 * vjs('player_id').chapter_thumbnails({
+	 * videojs('player_id').chapter_thumbnails({
 	 *     label:    'English',
 	 *     language: 'en',
 	 *     src:      'chapters.vtt'
@@ -101,8 +105,8 @@
 	 *
 	 * @param {Object} player VideoJS player
 	 * @param {Object} options={}
-	 * @param {Object} [options.label]
-	 * @param {Object} [options.language]
+	 * @param {Object} [options.label=English]
+	 * @param {Object} [options.language=en]
 	 * @param {Object} options.src
 	 * @param {Object} [options.template]
 	 */
@@ -155,7 +159,8 @@
 	                this.player.removeRemoteTextTrack(current_text_track);
 	            }
 
-	            var text_track = (0, _helper.extend)(this.defaults, this.options, {
+	            var text_track = (0, _extend2['default'])(this.defaults, this.options, {
+	                'default': true,
 	                kind: 'metadata',
 	                id: _track.TRACK_ID
 	            });
@@ -296,7 +301,7 @@
 	    /**
 	     * @name On Click
 	     * @description
-	     * Defined by vjs.MenuButton
+	     * Defined by videojs.MenuButton
 	     */
 
 	    onClick: function onClick(event) {
@@ -400,7 +405,7 @@
 	    /**
 	     * @name On Click
 	     * @description
-	     * Defined by vjs.MenuItem
+	     * Defined by videojs.MenuItem
 	     */
 
 	    onClick: function onClick(event) {
@@ -459,7 +464,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.extend = extend;
+	exports["default"] = extend;
 
 	function extend(obj) {
 	    var arg, i, k;
@@ -476,6 +481,8 @@
 
 	    return obj;
 	}
+
+	module.exports = exports["default"];
 
 /***/ }
 /******/ ]);
