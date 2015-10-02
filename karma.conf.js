@@ -16,6 +16,9 @@ module.exports = function (config) {
         webpack: {
             module: {
                 loaders: [{
+                    loader: 'null-loader',
+                    test:   /\.scss$/
+                }, {
                     exclude: /(node_modules)/,
                     loader:  'babel-loader',
                     test:    /\.js$/

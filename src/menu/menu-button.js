@@ -1,8 +1,8 @@
 import {Menu, MENU_NAME} from './menu';
-import MenuItem from './menu-item';
-import {TRACK_ID} from './track';
+import {MenuItem} from './menu-item';
+import {TRACK_ID} from '../track/text-track';
 
-export const MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
+const MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
 
 /**
  * @name Chapter Thumbnails Button
@@ -17,15 +17,16 @@ export const MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
  * @param {Object} options.text_track
  */
 
-export let MenuButton = videojs.MenuButton.extend({
-    init: function (player, options = {}) {
-        this.buttonText = 'Chapters';
-        this.className  = 'vjs-chapter-thumbnails-button vjs-chapters-button';
+const VjsMenuButton = videojs.getComponent('MenuButton');
 
-        videojs.MenuButton.call(this, player, options);
+class MenuButton extends VjsMenuButton {
+    constructor(player, options = {}) {
+        super(player, options);
 
-        this.el().setAttribute('aria-label','Chapters Menu');
-    },
+        this.addClass('vjs-chapter-thumbnails-button vjs-chapters-button');
+
+        this.el_.setAttribute('aria-label', 'Chapters Menu');
+    }
 
     createMenu() {
         let menu = this.player().getChild(MENU_NAME);
@@ -38,7 +39,7 @@ export let MenuButton = videojs.MenuButton.extend({
             name: MENU_NAME
         });
 
-        let text_track_element = this.options().text_track;
+        let text_track_element = this.options_.text_track;
 
         text_track_element.addEventListener('load', (event) => {
             let text_track = this.player().textTracks().getTrackById(TRACK_ID);
@@ -68,7 +69,7 @@ export let MenuButton = videojs.MenuButton.extend({
         }, false);
 
         return menu;
-    },
+    }
 
     createItems(text_track) {
         let items = [];
@@ -77,7 +78,7 @@ export let MenuButton = videojs.MenuButton.extend({
             return items;
         }
 
-        let {template} = this.options();
+        let {template} = this.options_;
 
         for (let i = 0, length = text_track.cues.length; i < length; i++) {
             let cue = text_track.cues[i];
@@ -90,7 +91,7 @@ export let MenuButton = videojs.MenuButton.extend({
         }
 
         return items;
-    },
+    }
 
     /**
      * @name On Click
@@ -98,7 +99,7 @@ export let MenuButton = videojs.MenuButton.extend({
      * Defined by videojs.MenuButton
      */
 
-    onClick: function (event) {
+    handleClick(event) {
         // TODO: not sure if there is a better way to determine visibility
         if (this.menu.hasClass('vjs-lock-showing')) {
             this.menu.unlockShowing();
@@ -108,4 +109,9 @@ export let MenuButton = videojs.MenuButton.extend({
 
         this.player().el().focus();
     }
-});
+}
+
+MenuButton.prototype.controlText_ = 'Chapters';
+
+export {MENU_BUTTON_NAME};
+export {MenuButton};

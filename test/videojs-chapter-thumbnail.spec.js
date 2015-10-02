@@ -1,8 +1,8 @@
-import 'video.js';
+import 'expose?videojs!video.js';
 
-import ChapterThumbnails from '../src/chapter-thumbnail';
+import ChapterThumbnails from '../src/videojs-chapter-thumbnail';
 
-import {TRACK_ID} from '../src/track';
+import {TRACK_ID} from '../src/track/text-track';
 
 describe('chapter-thumbnail.js', function () {
     var player;
@@ -10,11 +10,11 @@ describe('chapter-thumbnail.js', function () {
     beforeEach(function () {
         // followed example — https://github.com/videojs/videojs-contrib-ads
 
-        videojs.Html5.isSupported = function () {
+        videojs.getComponent('Html5').isSupported = function () {
             return true;
         };
 
-        delete videojs.Html5.prototype.setSource;
+        delete videojs.getComponent('Html5').prototype.setSource;
 
         let video = document.createElement('video');
 
