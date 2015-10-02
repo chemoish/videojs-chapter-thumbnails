@@ -1,13 +1,4 @@
-const defaults = {
-    template: (
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-</div>
-`
-    )
-};
+import template from './chapter-thumbnail-template';
 
 /**
  * @name Chapter Thumnails Menu Item
@@ -21,12 +12,10 @@ const defaults = {
  * @param {Object} options.text_track
  */
 
-export default videojs.MenuItem.extend({
-    init: function (player, options = {}) {
-        this.options(options);
+const VjsMenuItem = videojs.getComponent('MenuItem');
 
-        this.defaults = defaults;
-
+class MenuItem extends VjsMenuItem {
+    constructor(player, options = {}) {
         let {
             cue,
             text_track
@@ -34,16 +23,15 @@ export default videojs.MenuItem.extend({
 
         let current_time = player.currentTime();
 
-        options.label = this.template(cue);
+        options.label    = template(cue);
+        options.selected = (cue.startTime <= current_time && current_time < cue.endTime);
 
-        options.select = cue.startTime <= current_time && current_time < cue.endTime;
-
-        videojs.MenuItem.call(this, player, options);
+        super(player, options);
 
         this.addClass('vjs-chapter-thumbnails-menu-item');
 
         text_track.addEventListener('cuechange', videojs.bind(this, this.onCueChange));
-    },
+    }
 
     /**
      * @name On Click
@@ -51,36 +39,24 @@ export default videojs.MenuItem.extend({
      * Defined by videojs.MenuItem
      */
 
-    onClick: function (event) {
-        let cue = this.options().cue;
+    handleClick(event) {
+        let cue = this.options_.cue;
 
         this.player().currentTime(cue.startTime);
 
         this.player().el().focus();
-    },
+    }
 
-    onCueChange: function (event) {
+    onCueChange(event) {
         this.update();
-    },
+    }
 
-    template: function (cue) {
-        let template = this.options().template || this.defaults.template;
-
-        let cue_text = JSON.parse(cue.text || '{}');
-
-        for (let key in cue_text) {
-            if (cue_text.hasOwnProperty(key)) {
-                template = template.replace(new RegExp(`{{${key}}}`, 'ig'), cue_text[key]);
-            }
-        }
-
-        return template;
-    },
-
-    update: function () {
-        let cue          = this.options().cue,
+    update() {
+        let cue          = this.options_.cue,
             current_time = this.player().currentTime();
 
         this.selected(cue.startTime <= current_time && current_time < cue.endTime);
     }
-});
+}
+
+export {MenuItem};

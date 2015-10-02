@@ -1,13 +1,6 @@
 import {MenuButton, MENU_BUTTON_NAME} from './menu-button';
 import {TRACK_ID} from './track';
 
-import extend from './extend';
-
-const defaults = {
-    label:    'English',
-    language: 'en'
-};
-
 /**
  * @name Chapters Plugin
  * @description
@@ -52,10 +45,20 @@ const defaults = {
 
 export default class ChapterThumbnails {
     constructor(player, options = {}) {
-        this.player = player;
-        this.options = options;
+        const defaults = {
+            label:    'English',
+            language: 'en'
+        };
 
-        this.defaults = defaults;
+        this.player = player;
+
+        this.text_track = videojs.mergeOptions(defaults, options, {
+            default: true,
+            kind:    'metadata',
+            id:      TRACK_ID
+        });
+
+        this.template = this.text_track.template;
     }
 
     addComponent() {
@@ -72,11 +75,9 @@ export default class ChapterThumbnails {
 
         let text_track = this.addTextTrack();
 
-        let {template} = this.options;
-
         menu_button = new MenuButton(this.player, {
             name: MENU_BUTTON_NAME,
-            template,
+            template: this.template,
             text_track
         });
 
@@ -87,17 +88,11 @@ export default class ChapterThumbnails {
         let current_text_track = this.player.textTracks().getTrackById(TRACK_ID);
 
         // remove existing track
-        if (current_text_track !== undefined) {
+        if (typeof current_text_track !== 'undefined') {
             this.player.removeRemoteTextTrack(current_text_track);
         }
 
-        let text_track = extend(this.defaults, this.options, {
-            default: true,
-            kind:    'metadata',
-            id:      TRACK_ID
-        });
-
-        return this.player.addRemoteTextTrack(text_track);
+        return this.player.addRemoteTextTrack(this.text_track);
     }
 }
 

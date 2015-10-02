@@ -22,14 +22,14 @@ module.exports = function (grunt) {
     grunt.registerTask('default', 'Running development environment…', [
         'build',
         'connect',
-        'karma:unit:start',
+        // 'karma:unit:start',
         'watch'
     ]);
 
     grunt.registerTask('build', 'Running development build tasks…', [
         'webpack:development',
         'cssmin:development',
-        'test'
+        // 'test'
     ]);
 
     grunt.registerTask('deploy', 'Running production build tasks…', [

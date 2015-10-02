@@ -17,7 +17,7 @@ module.exports = function (grunt) {
             ],
 
             tasks: [
-                'karma:unit:run'
+                // 'karma:unit:run'
             ]
         },
 

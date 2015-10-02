@@ -21,7 +21,8 @@
     "html5",
     "player",
     "video",
-    "videojs"
+    "videojs",
+    "videojs-plugin"
   ],
   "devDependencies": {
     "babel-core": "^5.8.22",
@@ -46,7 +47,7 @@
     "load-grunt-tasks": "^3.2.0",
     "phantomjs": "^1.9.18",
     "time-grunt": "^1.2.1",
-    "video.js": "^4.12.13",
+    "video.js": "^5.0.0",
     "webpack": "^1.11.0",
     "webpack-dev-server": "^1.10.1"
   }

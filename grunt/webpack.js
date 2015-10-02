@@ -1,4 +1,3 @@
-var path = require('path');
 var webpack = require('webpack');
 
 module.exports = function (grunt) {
@@ -26,7 +25,7 @@ module.exports = function (grunt) {
 
         options: {
             entry: {
-                plugin: './src/chapter-thumbnail.js'
+                src: './src/videojs-chapter-thumbnail.js'
             },
 
             module: {
