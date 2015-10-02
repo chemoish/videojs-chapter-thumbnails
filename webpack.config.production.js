@@ -5,7 +5,7 @@ var Clean             = require('clean-webpack-plugin'),
 
 var config = webpackConfig.fromCwd().merge({
     output: {
-        filename: 'videojs.chapter-thumbnails.min.js',
+        filename: 'videojs.chapter-thumbnails.min.js'
     }
 });
 
