@@ -18,30 +18,4 @@ module.exports = function (grunt) {
     });
 
     grunt.loadTasks('grunt');
-
-    grunt.registerTask('default', 'Running development environment…', [
-        'build',
-        'connect',
-        // 'karma:unit:start',
-        'watch'
-    ]);
-
-    grunt.registerTask('build', 'Running development build tasks…', [
-        'webpack:development',
-        'cssmin:development',
-        // 'test'
-    ]);
-
-    grunt.registerTask('deploy', 'Running production build tasks…', [
-        'clean:dist',
-        'webpack:development',
-        'cssmin:development',
-        'copy:dist',
-        'webpack:dist',
-        'test'
-    ]);
-
-    grunt.registerTask('test', 'Running tests…', [
-        'karma:ci'
-    ]);
 };
