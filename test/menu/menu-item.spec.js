@@ -1,6 +1,6 @@
 import 'expose?videojs!video.js';
 
-import {MenuItem} from '../src/menu-item';
+import {MenuItem} from '../../src/menu/menu-item';
 
 describe('menu-item.js', function () {
     describe(':: template()', function () {

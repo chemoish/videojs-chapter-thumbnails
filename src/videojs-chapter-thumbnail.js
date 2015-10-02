@@ -1,7 +1,7 @@
 import './videojs-chapter-thumbnail.scss';
 
-import {MenuButton, MENU_BUTTON_NAME} from './menu-button';
-import {TRACK_ID} from './track';
+import {MenuButton, MENU_BUTTON_NAME} from './menu/menu-button';
+import {TRACK_ID} from './track/text-track';
 
 /**
  * @name Chapters Plugin

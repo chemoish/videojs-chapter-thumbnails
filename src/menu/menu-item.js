@@ -1,4 +1,4 @@
-import template from './chapter-thumbnail-template';
+import template from '../videojs-chapter-thumbnail-template';
 
 /**
  * @name Chapter Thumnails Menu Item

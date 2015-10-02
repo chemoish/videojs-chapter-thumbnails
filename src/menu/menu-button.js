@@ -1,6 +1,6 @@
 import {Menu, MENU_NAME} from './menu';
 import {MenuItem} from './menu-item';
-import {TRACK_ID} from './track';
+import {TRACK_ID} from '../track/text-track';
 
 const MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
 

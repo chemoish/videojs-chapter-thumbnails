@@ -1,4 +1,4 @@
-import chapterThumbnailTemplate from '../src/chapter-thumbnail-template';
+import chapterThumbnailTemplate from '../src/videojs-chapter-thumbnail-template';
 
 describe('chapter-thumbnail-template.js', function () {
     it('should return the unaltered default template.', function () {
