@@ -4,7 +4,7 @@
 
 > Video.js plugin for supporting **WebVTT** chapter thumbnails.
 
-![Example](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/example/asset/img/example.png?raw=true)
+![Example](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/asset/img/example.png?raw=true)
 
 ## Getting Started
 
@@ -12,7 +12,7 @@
 
 ```html
 <!-- optional: default styles -->
-<link href="/path/to/videojs.chapter-thumbnails.css" rel="stylesheet">
+<link href="/path/to/videojs.chapter-thumbnails.min.css" rel="stylesheet">
 
 <script src="/path/to/videojs.chapter-thumbnails.min.js"></script>
 ```
@@ -79,7 +79,7 @@ npm install -g grunt-cli
 
 npm install
 
-grunt
+npm start
 ```
 
 ## License
