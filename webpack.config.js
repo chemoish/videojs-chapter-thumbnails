@@ -42,7 +42,7 @@ module.exports = {
             '@date: ' + moment().format('YYYY-MM-DD')
         ].join('\n')),
 
-        new ExtractTextPlugin('videojs.chapter-thumbnail.css')
+        new ExtractTextPlugin('videojs.chapter-thumbnails.css')
     ],
 
     externals: {

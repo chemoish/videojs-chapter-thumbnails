@@ -14,7 +14,7 @@ config.plugins = [
         'build'
     ]),
 
-    new ExtractTextPlugin('videojs.chapter-thumbnail.min.css'),
+    new ExtractTextPlugin('videojs.chapter-thumbnails.min.css'),
 
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin()
