@@ -1,19 +1,19 @@
-import 'video.js';
+import 'expose?videojs!video.js';
 
-import MenuItem from '../src/menu-item';
+import {MenuItem} from '../src/menu-item';
 
 describe('menu-item.js', function () {
     describe(':: template()', function () {
-        var menu_item;
+        var player;
 
         beforeEach(function () {
             // followed example — https://github.com/videojs/videojs-contrib-ads
 
-            videojs.Html5.isSupported = function () {
+            videojs.getComponent('Html5').isSupported = function () {
                 return true;
             };
 
-            delete videojs.Html5.prototype.setSource;
+            delete videojs.getComponent('Html5').prototype.setSource;
 
             let video = document.createElement('video');
 
@@ -22,39 +22,26 @@ describe('menu-item.js', function () {
 
             document.getElementById('video_fixture').innerHTML = video.outerHTML;
 
-            menu_item = new MenuItem(videojs(video), {
+            player = videojs(video);
+        });
+
+        it('should initialize an unselected menu item.', function () {
+            var menu_item = new MenuItem(player, {
                 cue: {
                     startTime: 0,
                     endTime: 0,
-                    text: ''
+                    text: JSON.stringify({
+                        image: 'http://example.com',
+                        title: 'example'
+                    })
                 },
 
                 text_track: {
                     addEventListener: Function.prototype
                 }
             });
-        });
 
-        it('should return the unaltered default template.', function () {
-            expect(menu_item.template({
-                text: null
-            })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-</div>
-`
-            );
-        });
-
-        it('should return the modified default template.', function () {
-            expect(menu_item.template({
-                text: JSON.stringify({
-                    image: 'http://example.com',
-                    title: 'example'
-                })
-            })).toBe(
+            expect(menu_item.options_.label).toBe(
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
@@ -63,75 +50,37 @@ describe('menu-item.js', function () {
 `
             );
 
-            expect(menu_item.template({
-                text: JSON.stringify({
-                    image: 'http://example.com'
-                })
-            })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-</div>
-`
-            );
+            expect(menu_item.options_.selected).toBe(false);
+            expect(menu_item.hasClass('vjs-chapter-thumbnails-menu-item')).toBe(true);
         });
 
-        it('should return the enhanced template.', function () {
-            menu_item.options({
-                template: (
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-    <p class="vjs-chapters-thumbnails-item-description">{{description}}</p>
-</div>
-`
-                )
+        it('should initialize a selected menu item.', function () {
+            var menu_item = new MenuItem(player, {
+                cue: {
+                    startTime: 0,
+                    endTime: 1,
+                    text: JSON.stringify({
+                        image: 'http://example.com',
+                        title: 'example'
+                    })
+                },
+
+                text_track: {
+                    addEventListener: Function.prototype
+                }
             });
 
-            expect(menu_item.template({
-                text: JSON.stringify({
-                    description: 'example description',
-                    image: 'http://example.com',
-                    title: 'example title'
-                })
-            })).toBe(
+            expect(menu_item.options_.label).toBe(
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">example title</span>
-    <p class="vjs-chapters-thumbnails-item-description">example description</p>
+    <span class="vjs-chapters-thumbnails-item-title">example</span>
 </div>
 `
             );
 
-            menu_item.options({
-                template: (
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-    <p class="vjs-chapters-thumbnails-item-description">{{title}}</p>
-</div>
-`
-                )
-            });
-
-            expect(menu_item.template({
-                text: JSON.stringify({
-                    image: 'http://example.com',
-                    title: 'example title'
-                })
-            })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">example title</span>
-    <p class="vjs-chapters-thumbnails-item-description">example title</p>
-</div>
-`
-            );
+            expect(menu_item.options_.selected).toBe(true);
+            expect(menu_item.hasClass('vjs-chapter-thumbnails-menu-item')).toBe(true);
         });
     });
 });
