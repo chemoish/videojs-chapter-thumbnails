@@ -84,4 +84,4 @@ npm start
 
 ## License
 
-Code licensed under [The MIT License](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/README.md).
+Code licensed under [The MIT License](https://github.com/chemoish/videojs-chapter-thumbnails/blob/master/LICENSE).
