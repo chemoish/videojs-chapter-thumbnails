@@ -6,7 +6,7 @@
   "style": "./dist/videojs.chapter-thumbnails.min.css",
   "scripts": {
     "build": "webpack --progress",
-    "deploy": "webpack && webpack --progress --config webpack.config.production.js",
+    "deploy": "npm run build && webpack --progress --config webpack.config.production.js",
     "start": "webpack-dev-server -d --hot --config webpack.config.development.js",
     "test": "karma start --single-run"
   },
