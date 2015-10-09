@@ -36,11 +36,16 @@ module.exports = {
 
     plugins: [
         new webpack.BannerPlugin([
-            pkg.name + ' v' + pkg.version,
-            '',
-            '@author: ' + pkg.author,
-            '@date: ' + moment().format('YYYY-MM-DD')
-        ].join('\n')),
+            '/**',
+            ' * ' + pkg.name + ' v' + pkg.version,
+            ' * ',
+            ' * @author: ' + pkg.author,
+            ' * @date: ' + moment().format('YYYY-MM-DD'),
+            ' */',
+            ''
+        ].join('\n'), {
+            raw: true
+        }),
 
         new ExtractTextPlugin('videojs.chapter-thumbnails.css')
     ],
