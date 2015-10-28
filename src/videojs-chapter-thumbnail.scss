@@ -9,22 +9,22 @@
 
 /* Chapter Thumbnails Menu — Show when video has started */
 
-.vjs-has-started.vjs-chapter-thumbnails-menu
+.vjs-has-started .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-    @include transition((opacity 0.1s), (visibility 0.1s));
+    @include transition((visibility 0.1s null null), (opacity 0.1s null null));
 
     opacity:    1;
-    visibility: 1;
+    visibility: visible;
 }
 
 /* Chapter Thumbnails Menu — Hide when user becomes inactive */
 
-.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-chapter-thumbnails-menu
+.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-    @include transition((opacity 1s), (visibility 1s));
+    @include transition((visibility 1s null null), (opacity 1s null null));
 
     opacity:    0;
-    visibility: 0;
+    visibility: hidden;
 }
 
 /* Chapter Thumbnails Menu */
