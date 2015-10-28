@@ -1,6 +1,6 @@
 import './videojs-chapter-thumbnail.scss';
 
-import {MenuButton, MENU_BUTTON_NAME} from './menu/menu-button';
+import {ChapterThumbnailMenuButton, CHAPTER_THUMBNAIL_MENU_BUTTON_NAME} from './menu/chapter-thumbnail-menu-button';
 import {TRACK_ID} from './track/text-track';
 
 /**
@@ -66,35 +66,41 @@ export default class ChapterThumbnails {
     addComponent() {
         let control_bar = this.player.getChild('controlBar');
 
-        let menu_button = control_bar.getChild(MENU_BUTTON_NAME);
+        let chapter_button = control_bar.getChild('chaptersButton');
 
-        // remove existing menu button
-        if (menu_button != null) {
-            control_bar.removeChild(menu_button);
+        let chapter_thumbnail_menu_button = control_bar.getChild(CHAPTER_THUMBNAIL_MENU_BUTTON_NAME);
 
-            menu_button.dispose();
+        // remove existing menu—menu button will be hidden if there are no items found
+        if (chapter_thumbnail_menu_button && chapter_thumbnail_menu_button.menu) {
+            chapter_thumbnail_menu_button.menu.dispose();
+
+            delete chapter_thumbnail_menu_button.menu;
+        } else {
+            chapter_thumbnail_menu_button = new ChapterThumbnailMenuButton(this.player, {
+                name: CHAPTER_THUMBNAIL_MENU_BUTTON_NAME,
+                template: this.template
+            });
+
+            // add component to end of control bar
+            control_bar.addChild(chapter_thumbnail_menu_button);
+
+            // move component—there is no component index placement
+            control_bar.el().insertBefore(chapter_thumbnail_menu_button.el(), chapter_button.el());
         }
 
-        let text_track = this.addTextTrack();
-
-        menu_button = new MenuButton(this.player, {
-            name: MENU_BUTTON_NAME,
-            template: this.template,
-            text_track
-        });
-
-        control_bar.addChild(menu_button);
+        this.addTextTrack();
     }
 
     addTextTrack() {
         let current_text_track = this.player.textTracks().getTrackById(TRACK_ID);
 
         // remove existing track
-        if (typeof current_text_track !== 'undefined') {
+        if (current_text_track) {
             this.player.removeRemoteTextTrack(current_text_track);
         }
 
-        return this.player.addRemoteTextTrack(this.text_track);
+        // add new track
+        this.player.addRemoteTextTrack(this.text_track);
     }
 }
 
