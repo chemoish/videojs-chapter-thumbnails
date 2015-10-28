@@ -1,6 +1,6 @@
 import 'expose?videojs!video.js';
 
-import {MenuItem} from '../../src/menu/menu-item';
+import {ChapterThumbnailMenuItem} from '../../src/menu/chapter-thumbnail-menu-item';
 
 describe('menu-item.js', function () {
     describe(':: template()', function () {
@@ -26,7 +26,7 @@ describe('menu-item.js', function () {
         });
 
         it('should initialize an unselected menu item.', function () {
-            var menu_item = new MenuItem(player, {
+            var menu_item = new ChapterThumbnailMenuItem(player, {
                 cue: {
                     startTime: 0,
                     endTime: 0,
@@ -55,7 +55,7 @@ describe('menu-item.js', function () {
         });
 
         it('should initialize a selected menu item.', function () {
-            var menu_item = new MenuItem(player, {
+            var menu_item = new ChapterThumbnailMenuItem(player, {
                 cue: {
                     startTime: 0,
                     endTime: 1,

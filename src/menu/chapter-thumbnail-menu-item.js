@@ -14,7 +14,7 @@ import template from '../videojs-chapter-thumbnail-template';
 
 const VjsMenuItem = videojs.getComponent('MenuItem');
 
-class MenuItem extends VjsMenuItem {
+class ChapterThumbnailMenuItem extends VjsMenuItem {
     constructor(player, options = {}) {
         let {
             cue,
@@ -40,9 +40,19 @@ class MenuItem extends VjsMenuItem {
      */
 
     handleClick(event) {
-        let cue = this.options_.cue;
+        let cue       = this.options_.cue;
+        let is_paused = this.player().paused();
+
+
+        if (!is_paused) {
+            this.player().pause();
+        }
 
         this.player().currentTime(cue.startTime);
+
+        if (!is_paused) {
+            this.player().play();
+        }
 
         this.player().el().focus();
     }
@@ -59,4 +69,4 @@ class MenuItem extends VjsMenuItem {
     }
 }
 
-export {MenuItem};
+export {ChapterThumbnailMenuItem};

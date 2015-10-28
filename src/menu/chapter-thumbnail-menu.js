@@ -1,4 +1,4 @@
-const MENU_NAME = 'ChapterThumbnailMenu';
+const CHAPTER_THUMBNAIL_MENU_NAME = 'ChapterThumbnailMenu';
 
 /**
  * @name Chapter Thumbnails Menu
@@ -12,7 +12,7 @@ const MENU_NAME = 'ChapterThumbnailMenu';
 
 const VjsMenu = videojs.getComponent('Menu');
 
-class Menu extends VjsMenu {
+class ChapterThumbnailMenu extends VjsMenu {
     constructor(player, options = {}) {
         super(player, options);
 
@@ -23,5 +23,5 @@ class Menu extends VjsMenu {
     }
 }
 
-export {MENU_NAME};
-export {Menu};
+export {CHAPTER_THUMBNAIL_MENU_NAME};
+export {ChapterThumbnailMenu};
