@@ -34,7 +34,7 @@ class ChapterThumbnailMenuItem extends VjsMenuItem {
     }
 
     /**
-     * @name On Click
+     * @name Handle Click
      * @description
      * Defined by videojs.MenuItem
      */

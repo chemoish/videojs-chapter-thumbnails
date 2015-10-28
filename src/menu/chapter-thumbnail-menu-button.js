@@ -14,7 +14,6 @@ const CHAPTER_THUMBNAIL_MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
  * @param {Object} options={}
  * @param {Object} options.name Component name
  * @param {Object} [options.template]
- * @param {Object} options.text_track
  */
 
 const VjsMenuButton = videojs.getComponent('MenuButton');
@@ -25,13 +24,18 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
 
         let tracks = this.player().textTracks();
 
+        // hide the button if there are no items
         if (this.items.length <= 0) {
             this.hide();
         }
 
+        // do not set any events unless tracks are available
         if (!tracks) {
             return;
         }
+
+        // NOTE: https://github.com/videojs/video.js/blob/master/src/js/control-bar/text-track-controls/text-track-button.js
+        // Events follow videojs.TextTrackButton
 
         var update = this.update.bind(this);
 
@@ -53,6 +57,11 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
      * @description
      * Defined by videojs.MenuButton
      *
+     * This method gets hit multiple times from multiple areas.
+     * - constructor
+     * - addtrack event
+     * - removetrack event
+     * - timeout hack
      */
 
     createMenu() {
@@ -60,6 +69,9 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
         let tracks = this.player().textTracks() || [];
 
         this.items = [];
+
+        // NOTE: https://github.com/videojs/video.js/blob/master/src/js/control-bar/text-track-controls/chapters-button.js#L86
+        // Follows videojs.ChaptersButton
 
         for (let i = 0, length = tracks.length; i < length; i++) {
             let track = tracks[i];
@@ -71,21 +83,21 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
             if (!track.cues) {
                 track.mode = 'hidden';
 
-                // NOTE: https://github.com/videojs/video.js/blob/master/src/js/control-bar/text-track-controls/chapters-button.js#L86
-                setTimeout(() => {
-                    this.createMenu();
-                }, 100);
+                // hack—see note above
+                setTimeout(() => this.createMenu(), 100);
             } else {
                 chapter_track = track;
             }
         }
 
+        // cache menu during create menu dance
         if (!this.menu) {
             this.menu = new ChapterThumbnailMenu(this.player(), {
                 name: CHAPTER_THUMBNAIL_MENU_NAME
             });
         }
 
+        // create menu if track cues are available
         if (chapter_track) {
             this.items = this.createItems(chapter_track);
 
@@ -136,7 +148,7 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
     }
 
     /**
-     * @name On Click
+     * @name Handle Click
      * @description
      * Defined by videojs.MenuButton
      */
@@ -166,12 +178,6 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
 
         this.menu = menu;
 
-        /**
-         * Track the state of the menu button
-         *
-         * @type {Boolean}
-         * @private
-         */
         this.buttonPressed_ = false;
 
         if (this.items && this.items.length === 0) {

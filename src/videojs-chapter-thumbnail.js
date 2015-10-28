@@ -70,7 +70,7 @@ export default class ChapterThumbnails {
 
         let chapter_thumbnail_menu_button = control_bar.getChild(CHAPTER_THUMBNAIL_MENU_BUTTON_NAME);
 
-        // remove existing menu
+        // remove existing menu—menu button will be hidden if there are no items found
         if (chapter_thumbnail_menu_button && chapter_thumbnail_menu_button.menu) {
             chapter_thumbnail_menu_button.menu.dispose();
 
@@ -81,8 +81,10 @@ export default class ChapterThumbnails {
                 template: this.template
             });
 
+            // add component to end of control bar
             control_bar.addChild(chapter_thumbnail_menu_button);
 
+            // move component—there is no component index placement
             control_bar.el().insertBefore(chapter_thumbnail_menu_button.el(), chapter_button.el());
         }
 
@@ -97,6 +99,7 @@ export default class ChapterThumbnails {
             this.player.removeRemoteTextTrack(current_text_track);
         }
 
+        // add new track
         this.player.addRemoteTextTrack(this.text_track);
     }
 }
