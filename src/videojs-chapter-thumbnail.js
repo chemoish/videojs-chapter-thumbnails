@@ -92,7 +92,7 @@ export default class ChapterThumbnails {
     }
 
     addTextTrack() {
-        let current_text_track = this.player.textTracks().getTrackById(TRACK_ID);
+        let current_text_track = this.player.remoteTextTracks().getTrackById(TRACK_ID);
 
         // remove existing track
         if (current_text_track) {
