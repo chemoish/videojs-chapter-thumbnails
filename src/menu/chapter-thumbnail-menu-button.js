@@ -22,7 +22,7 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
     constructor(player, options = {}) {
         super(player, options);
 
-        let tracks = this.player().textTracks();
+        let tracks = this.player().remoteTextTracks();
 
         // hide the button if there are no items
         if (this.items.length <= 0) {
@@ -66,35 +66,41 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
 
     createMenu() {
         let chapter_track;
-        let tracks = this.player().textTracks() || [];
+        let track;
+        let tracks = this.player().remoteTextTracks() || [];
 
         this.items = [];
-
-        // NOTE: https://github.com/videojs/video.js/blob/master/src/js/control-bar/text-track-controls/chapters-button.js#L86
-        // Follows videojs.ChaptersButton
-
-        for (let i = 0, length = tracks.length; i < length; i++) {
-            let track = tracks[i];
-
-            if (track.id !== TRACK_ID) {
-                continue;
-            }
-
-            if (!track.cues) {
-                track.mode = 'hidden';
-
-                // hack—see note above
-                setTimeout(() => this.createMenu(), 100);
-            } else {
-                chapter_track = track;
-            }
-        }
 
         // cache menu during create menu dance
         if (!this.menu) {
             this.menu = new ChapterThumbnailMenu(this.player(), {
                 name: CHAPTER_THUMBNAIL_MENU_NAME
             });
+        }
+
+        for (let i = 0, length = tracks.length; i < length; i++) {
+            track = tracks[i];
+
+            if (track.id === TRACK_ID) {
+                break;
+            }
+        }
+
+        if (!track) {
+            return this.menu;
+        }
+
+        // NOTE: https://github.com/videojs/video.js/blob/master/src/js/control-bar/text-track-controls/chapters-button.js#L86
+        // NOTE: https://github.com/videojs/video.js/issues/2628#issuecomment-152665267
+        // Follows videojs.ChaptersButton
+
+        if (!track.cues) {
+            track.mode = 'hidden';
+
+            // hack—see note above
+            setTimeout(() => this.createMenu(), 200);
+        } else {
+            chapter_track = track;
         }
 
         // create menu if track cues are available
