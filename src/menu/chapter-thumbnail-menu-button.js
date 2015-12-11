@@ -47,7 +47,8 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
             tracks.removeEventListener('removetrack', update);
         });
 
-        this.addClass('vjs-chapter-thumbnails-button vjs-chapters-button');
+        this.addClass('vjs-chapter-thumbnails-button');
+        this.addClass('vjs-chapters-button');
 
         this.el_.setAttribute('aria-label', 'Chapters Menu');
     }
@@ -65,8 +66,9 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
      */
 
     createMenu() {
-        let chapter_track;
-        let track;
+        let chapter_track,
+            track;
+
         let tracks = this.player().remoteTextTracks() || [];
 
         this.items = [];
@@ -82,29 +84,28 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
             track = tracks[i];
 
             if (track.id === TRACK_ID) {
+                chapter_track = track;
+
                 break;
             }
         }
 
-        if (!track) {
+        if (!chapter_track) {
             return this.menu;
         }
 
-        // NOTE: https://github.com/videojs/video.js/blob/master/src/js/control-bar/text-track-controls/chapters-button.js#L86
-        // NOTE: https://github.com/videojs/video.js/issues/2628#issuecomment-152665267
-        // Follows videojs.ChaptersButton
-
-        if (!track.cues) {
+        if (chapter_track && chapter_track.cues == null) {
             track.mode = 'hidden';
 
-            // hack—see note above
-            setTimeout(() => this.createMenu(), 200);
-        } else {
-            chapter_track = track;
+            let remote_text_track_el = this.player().remoteTextTrackEls().getTrackElementByTrack_(track);
+
+            if (remote_text_track_el) {
+                remote_text_track_el.addEventListener('load', (event) => this.createMenu());
+            }
         }
 
         // create menu if track cues are available
-        if (chapter_track) {
+        if (chapter_track && chapter_track.cues && chapter_track.cues.length > 0) {
             this.items = this.createItems(chapter_track);
 
             for (let i = 0, length = this.items.length; i < length; i++) {

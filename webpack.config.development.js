@@ -1,6 +1,6 @@
-var webpackConfig = require('webpack-config');
+var WebpackConfig = require('webpack-config');
 
-module.exports = webpackConfig.fromCwd().merge({
+module.exports = new WebpackConfig().extend('./webpack.config.js').merge({
     devServer: {
         colors:             true,
         contentBase:        '.',

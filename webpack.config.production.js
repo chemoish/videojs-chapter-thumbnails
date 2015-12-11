@@ -1,9 +1,9 @@
 var Clean             = require('clean-webpack-plugin'),
     ExtractTextPlugin = require('extract-text-webpack-plugin'),
     webpack           = require('webpack'),
-    webpackConfig     = require('webpack-config');
+    WebpackConfig     = require('webpack-config');
 
-var config = webpackConfig.fromCwd().merge({
+var config = new WebpackConfig().extend('./webpack.config.js').merge({
     output: {
         filename: 'videojs.chapter-thumbnails.min.js'
     }
