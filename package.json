@@ -53,9 +53,9 @@
     "sass-loader": "^3.0.0",
     "style-loader": "^0.12.4",
     "time-grunt": "^1.2.1",
-    "video.js": "^5.0.0",
-    "webpack": "^1.11.0",
-    "webpack-config": "^0.8.0",
-    "webpack-dev-server": "^1.10.1"
+    "video.js": "^5.4.4",
+    "webpack": "^1.12.9",
+    "webpack-config": "^2.3.0",
+    "webpack-dev-server": "^1.14.0"
   }
 }
