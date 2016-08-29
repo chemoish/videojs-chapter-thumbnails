@@ -8,7 +8,7 @@
     "build:development": "webpack --config webpack/webpack.config",
     "build:production": "webpack --config webpack/webpack.config.production",
     "build": "npm run build:production && npm run build:development",
-    "lint:js": "eslint karma.conf src/ webpack/",
+    "lint:js": "eslint karma.conf src/ test/ webpack/",
     "start": "webpack-dev-server --config webpack/webpack-dev-server",
     "test": "karma start --single-run"
   },
