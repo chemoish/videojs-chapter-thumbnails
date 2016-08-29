@@ -18,7 +18,7 @@ class ChapterThumbnailMenuItem extends VjsMenuItem {
     constructor(player, options = {}) {
         let {
             cue,
-            text_track
+            textTrack
         } = options;
 
         let current_time = player.currentTime();
@@ -30,7 +30,7 @@ class ChapterThumbnailMenuItem extends VjsMenuItem {
 
         this.addClass('vjs-chapter-thumbnails-menu-item');
 
-        text_track.addEventListener('cuechange', videojs.bind(this, this.onCueChange));
+        textTrack.addEventListener('cuechange', videojs.bind(this, this.onCueChange));
     }
 
     /**
