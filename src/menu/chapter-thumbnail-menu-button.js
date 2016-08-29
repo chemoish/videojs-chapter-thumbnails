@@ -1,7 +1,7 @@
 /* global videojs */
 
 import { ChapterThumbnailMenu, CHAPTER_THUMBNAIL_MENU_NAME } from './chapter-thumbnail-menu';
-import { ChapterThumbnailMenuItem } from './chapter-thumbnail-menu-item';
+import ChapterThumbnailMenuItem from './chapter-thumbnail-menu-item';
 import { TRACK_ID } from '../track/text-track';
 
 const CHAPTER_THUMBNAIL_MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
