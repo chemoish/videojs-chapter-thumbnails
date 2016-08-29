@@ -1,0 +1,18 @@
+root: true
+
+extends: "airbnb-base"
+
+parserOptions:
+  ecmaVersion: 6
+  sourceType: "module"
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
+
+env:
+  browser: true
+  es6: true
+  jasmine: true
+  node: true
+
+rules:
+  import/no-extraneous-dependencies: ['error', {'devDependencies': true}]
