@@ -1,5 +1,3 @@
-@import 'compass';
-
 /* Chapter Thumbnails Menu — Hide by default */
 
 .vjs-menu.vjs-chapter-thumbnails-menu
@@ -11,9 +9,8 @@
 
 .vjs-has-started .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-    @include transition((visibility 0.1s null null), (opacity 0.1s null null));
-
     opacity:    1;
+    transition: visibility 0.1s null null, opacity 0.1s null null;
     visibility: visible;
 }
 
@@ -21,9 +18,8 @@
 
 .vjs-has-started.vjs-user-inactive.vjs-playing .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-    @include transition((visibility 1s null null), (opacity 1s null null));
-
     opacity:    0;
+    transition: visibility 1s null null, opacity 1s null null;
     visibility: hidden;
 }
 
