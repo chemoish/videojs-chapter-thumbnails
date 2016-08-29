@@ -2,7 +2,7 @@ import 'expose?videojs!video.js';
 
 import ChapterThumbnails from '../src/videojs-chapter-thumbnail';
 
-import {TRACK_ID} from '../src/track/text-track';
+import TRACK_ID from '../src/track/text-track';
 
 describe('chapter-thumbnail.js', function () {
     var player;

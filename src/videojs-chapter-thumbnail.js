@@ -3,7 +3,7 @@
 import './videojs-chapter-thumbnail.scss';
 
 import * as MenuChapterThumbnailMenuButton from './menu/chapter-thumbnail-menu-button';
-import { TRACK_ID } from './track/text-track';
+import TRACK_ID from './track/text-track';
 
 const {
   CHAPTER_THUMBNAIL_MENU_BUTTON_NAME,
