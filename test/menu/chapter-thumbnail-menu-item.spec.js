@@ -42,7 +42,7 @@ describe('menu-item.js', () => {
       });
 
       expect(menuItem.options_.label).toBe(
-        `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">example</span>
@@ -71,7 +71,7 @@ describe('menu-item.js', () => {
       });
 
       expect(menuItem.options_.label).toBe(
-        `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">example</span>

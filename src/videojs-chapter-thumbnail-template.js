@@ -1,6 +1,6 @@
 const defaults = {
   template: (
-    `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
     <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>

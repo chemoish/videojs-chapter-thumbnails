@@ -5,7 +5,7 @@ describe('chapter-thumbnail-template.js', () => {
     expect(chapterThumbnailTemplate({
       text: null,
     })).toBe(
-      `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
     <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
@@ -21,7 +21,7 @@ describe('chapter-thumbnail-template.js', () => {
         title: 'example',
       }),
     })).toBe(
-      `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">example</span>
@@ -34,7 +34,7 @@ describe('chapter-thumbnail-template.js', () => {
         image: 'http://example.com',
       }),
     })).toBe(
-      `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
@@ -52,7 +52,7 @@ describe('chapter-thumbnail-template.js', () => {
       }),
     }, {
       template: (
-        `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
     <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
@@ -61,7 +61,7 @@ describe('chapter-thumbnail-template.js', () => {
 `
       ),
     })).toBe(
-      `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">example title</span>
@@ -77,7 +77,7 @@ describe('chapter-thumbnail-template.js', () => {
       }),
     }, {
       template: (
-        `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
     <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
@@ -86,7 +86,7 @@ describe('chapter-thumbnail-template.js', () => {
 `
       ),
     })).toBe(
-      `
+`
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">example title</span>
