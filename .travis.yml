@@ -1,13 +1,16 @@
 language: node_js
 
 node_js:
-  - 0.12
+  - 6.5.0
 
 before_install:
   - npm install -g grunt-cli
 
 install:
   - npm install
+
+script:
+  - npm run lint:js
 
 notifications:
   email:
