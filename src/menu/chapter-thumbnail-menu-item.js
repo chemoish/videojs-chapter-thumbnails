@@ -9,9 +9,9 @@ import template from '../videojs-chapter-thumbnail-template';
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} options.cue
- * @param {Object} [options.template]
- * @param {Object} options.text_track
+ * @param {TextTrackCue} options.cue
+ * @param {string} [options.template]
+ * @param {TextTrack} options.textTrack
  */
 
 const VjsMenuItem = videojs.getComponent('MenuItem');

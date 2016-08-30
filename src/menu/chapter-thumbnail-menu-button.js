@@ -14,8 +14,8 @@ const CHAPTER_THUMBNAIL_MENU_BUTTON_NAME = 'ChapterThumbnailMenuButton';
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} options.name Component name
- * @param {Object} [options.template]
+ * @param {string} options.name Component name
+ * @param {string} [options.template]
  */
 
 const VjsMenuButton = videojs.getComponent('MenuButton');
