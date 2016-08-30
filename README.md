@@ -21,7 +21,7 @@
 
 ```js
 videojs('player_id').chapter_thumbnails({
-    src: '/path/to/chapters.vtt'
+  src: '/path/to/chapters.vtt'
 });
 ```
 
@@ -31,27 +31,27 @@ videojs('player_id').chapter_thumbnails({
 
 #### label
 
-Type: `String`  
+Type: `string`  
 Default: `English`
 
 #### language
 
-Type: `String`  
+Type: `string`  
 Default: `en`
 
 #### src
 
-Type: `String`
+Type: `string`
 
 #### template
 
-Type: `String`  
+Type: `string`  
 Default:
 
 ```html
 <div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
+  <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
+  <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
 </div>
 ```
 
@@ -67,8 +67,8 @@ WEBVTT
 Chapter 1
 00:00:00.000 --> 00:00:10.000
 {
-    "title":"Chapter 1",
-    "image":"asset/img/chapter_1.png"
+  "title":"Chapter 1",
+  "image":"asset/img/chapter_1.png"
 }
 ```
 

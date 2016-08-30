@@ -9,7 +9,7 @@ const CHAPTER_THUMBNAIL_MENU_NAME = 'ChapterThumbnailMenu';
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} options.name Component name
+ * @param {string} options.name Component name
  */
 
 const VjsMenu = videojs.getComponent('Menu');
