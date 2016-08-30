@@ -30,7 +30,7 @@ const {
  * @example
  * videojs('playerId', {
  *     plugins: {
- *         chapterThumbnails: {
+ *         chapter_thumbnails: {
  *             label:    'English',
  *             language: 'en',
  *             src:      'chapters.vtt'
@@ -38,7 +38,7 @@ const {
  *     }
  * });
  *
- * videojs('playerId').chapterThumbnails({
+ * videojs('player_id').chapter_thumbnails({
  *     label:    'English',
  *     language: 'en',
  *     src:      'chapters.vtt'
