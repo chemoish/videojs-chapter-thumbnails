@@ -1,3 +1,5 @@
+/* global videojs */
+
 import template from '../videojs-chapter-thumbnail-template';
 
 /**
@@ -7,66 +9,68 @@ import template from '../videojs-chapter-thumbnail-template';
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} options.cue
- * @param {Object} [options.template]
- * @param {Object} options.text_track
+ * @param {TextTrackCue} options.cue
+ * @param {string} [options.template]
+ * @param {TextTrack} options.textTrack
  */
 
 const VjsMenuItem = videojs.getComponent('MenuItem');
 
 class ChapterThumbnailMenuItem extends VjsMenuItem {
-    constructor(player, options = {}) {
-        let {
-            cue,
-            text_track
-        } = options;
+  constructor(player, options = {}) {
+    const {
+      cue,
+      textTrack,
+    } = options;
 
-        let current_time = player.currentTime();
+    const currentTime = player.currentTime();
 
-        options.label    = template(cue);
-        options.selected = (cue.startTime <= current_time && current_time < cue.endTime);
+    super(player, {
+      ...options,
 
-        super(player, options);
+      label: template(cue),
+      selected: (cue.startTime <= currentTime && currentTime < cue.endTime),
+    });
 
-        this.addClass('vjs-chapter-thumbnails-menu-item');
+    this.addClass('vjs-chapter-thumbnails-menu-item');
 
-        text_track.addEventListener('cuechange', videojs.bind(this, this.onCueChange));
+    textTrack.addEventListener('cuechange', videojs.bind(this, this.onCueChange));
+  }
+
+  /**
+   * @name Handle Click
+   * @description
+   * Defined by videojs.MenuItem
+   */
+
+  handleClick() {
+    const cue = this.options_.cue;
+    const isPaused = this.player().paused();
+
+
+    if (!isPaused) {
+      this.player().pause();
     }
 
-    /**
-     * @name Handle Click
-     * @description
-     * Defined by videojs.MenuItem
-     */
+    this.player().currentTime(cue.startTime);
 
-    handleClick(event) {
-        let cue       = this.options_.cue;
-        let is_paused = this.player().paused();
-
-
-        if (!is_paused) {
-            this.player().pause();
-        }
-
-        this.player().currentTime(cue.startTime);
-
-        if (!is_paused) {
-            this.player().play();
-        }
-
-        this.player().el().focus();
+    if (!isPaused) {
+      this.player().play();
     }
 
-    onCueChange(event) {
-        this.update();
-    }
+    this.player().el().focus();
+  }
 
-    update() {
-        let cue          = this.options_.cue,
-            current_time = this.player().currentTime();
+  onCueChange() {
+    this.update();
+  }
 
-        this.selected(cue.startTime <= current_time && current_time < cue.endTime);
-    }
+  update() {
+    const cue = this.options_.cue;
+    const currentTime = this.player().currentTime();
+
+    this.selected(cue.startTime <= currentTime && currentTime < cue.endTime);
+  }
 }
 
-export {ChapterThumbnailMenuItem};
+export default ChapterThumbnailMenuItem;
