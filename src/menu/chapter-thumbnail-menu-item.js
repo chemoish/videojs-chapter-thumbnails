@@ -1,6 +1,6 @@
 /* global videojs */
 
-import template from '../videojs-chapter-thumbnail-template';
+import chapterThumbnailTemplate from '../videojs-chapter-thumbnail-template';
 
 /**
  * @name Chapter Thumnails Menu Item
@@ -28,7 +28,7 @@ class ChapterThumbnailMenuItem extends VjsMenuItem {
     super(player, {
       ...options,
 
-      label: template(cue),
+      label: chapterThumbnailTemplate(cue, options),
       selected: (cue.startTime <= currentTime && currentTime < cue.endTime),
     });
 
