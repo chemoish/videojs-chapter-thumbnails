@@ -1,11 +1,10 @@
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 const webpack = require('webpack');
 const webpackConfig = require('./webpack.config');
 
-webpackConfig.output = {
-  filename: '[name].min.js',
-};
+webpackConfig.output.filename = '[name].min.js';
 
 webpackConfig.module.loaders = [{
   include: /src/,
@@ -22,9 +21,9 @@ webpackConfig.module.loaders = [{
 }];
 
 webpackConfig.plugins = [
-  new CleanWebpackPlugin([
-    'dist',
-  ]),
+  new CleanWebpackPlugin('dist', {
+    root: path.resolve(__dirname, '..'),
+  }),
 
   new ExtractTextPlugin('[name].min.css'),
 
