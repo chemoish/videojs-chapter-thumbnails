@@ -1,7 +1,5 @@
 /* global videojs */
 
-import 'expose?videojs!video.js';
-
 import ChapterThumbnails from '../src/videojs-chapter-thumbnail';
 
 import TRACK_ID from '../src/track/text-track';

@@ -23,33 +23,33 @@ const {
  *
  * 00:00:00.000 --> 00:10:00.000
  * {
- *     "title":"Introduction",
- *     "image":"http://www.example.com/example.jpg"
+ *   "title":"Introduction",
+ *   "image":"http://www.example.com/example.jpg"
  * }
  *
  * @example
  * videojs('playerId', {
- *     plugins: {
- *         chapter_thumbnails: {
- *             label:    'English',
- *             language: 'en',
- *             src:      'chapters.vtt'
- *         }
+ *   plugins: {
+ *     chapter_thumbnails: {
+ *       label: 'English',
+ *       language: 'en',
+ *       src: 'chapters.vtt'
  *     }
+ *   }
  * });
  *
  * videojs('player_id').chapter_thumbnails({
- *     label:    'English',
- *     language: 'en',
- *     src:      'chapters.vtt'
+ *   label: 'English',
+ *   language: 'en',
+ *   src: 'chapters.vtt'
  * });
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} [options.label=English]
- * @param {Object} [options.language=en]
- * @param {Object} options.src
- * @param {Object} [options.template]
+ * @param {string} [options.label=English]
+ * @param {string} [options.language=en]
+ * @param {string} options.src
+ * @param {string} [options.template]
  */
 
 export default class ChapterThumbnails {

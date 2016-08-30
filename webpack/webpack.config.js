@@ -70,8 +70,4 @@ module.exports = {
     includePaths: [path.join(__dirname, '..', 'src')],
     sourceMap: true,
   },
-
-  externals: {
-    'video.js': 'videojs',
-  },
 };

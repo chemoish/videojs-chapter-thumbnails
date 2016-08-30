@@ -23,7 +23,7 @@ webpackConfig.module.loaders = [{
 
 webpackConfig.plugins = [
   new CleanWebpackPlugin([
-    'build',
+    'dist',
   ]),
 
   new ExtractTextPlugin('[name].min.css'),
