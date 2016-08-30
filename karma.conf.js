@@ -26,10 +26,6 @@ module.exports = (config) => {
           test: /\.js$/,
         }],
       },
-
-      externals: {
-        'video.js': 'videojs',
-      },
     },
 
     webpackMiddleware: {

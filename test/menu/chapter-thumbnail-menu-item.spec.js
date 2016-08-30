@@ -1,7 +1,5 @@
 /* global videojs */
 
-import 'expose?videojs!video.js';
-
 import ChapterThumbnailMenuItem from '../../src/menu/chapter-thumbnail-menu-item';
 
 describe('menu-item.js', () => {
