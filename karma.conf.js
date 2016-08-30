@@ -1,33 +1,35 @@
-module.exports = function (config) {
-    config.set({
-        browsers: ['PhantomJS'],
+module.exports = (config) => {
+  config.set({
+    browsers: ['PhantomJS'],
 
-        frameworks: ['jasmine'],
+    frameworks: ['jasmine'],
 
-        files: [{
-            pattern: 'test/tests.webpack.js',
-            watched: false
+    files: [{
+      pattern: 'test/tests.webpack.js',
+      watched: false,
+    }],
+
+    preprocessors: {
+      'test/tests.webpack.js': ['webpack'],
+    },
+
+    webpack: {
+      module: {
+        loaders: [{
+          loader: 'null-loader',
+          test: /\.scss$/,
         }],
 
-        preprocessors: {
-            'test/tests.webpack.js': ['webpack']
-        },
+        postLoaders: [{
+          exclude: /node_modules/,
+          loader: 'babel-loader',
+          test: /\.js$/,
+        }],
+      },
+    },
 
-        webpack: {
-            module: {
-                loaders: [{
-                    loader: 'null-loader',
-                    test:   /\.scss$/
-                }, {
-                    exclude: /(node_modules)/,
-                    loader:  'babel-loader',
-                    test:    /\.js$/
-                }]
-            }
-        },
-
-        webpackMiddleware: {
-            noInfo: true
-        }
-    });
+    webpackMiddleware: {
+      noInfo: true,
+    },
+  });
 };

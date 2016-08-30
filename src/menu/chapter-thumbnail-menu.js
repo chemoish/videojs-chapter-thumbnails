@@ -1,3 +1,5 @@
+/* global videojs */
+
 const CHAPTER_THUMBNAIL_MENU_NAME = 'ChapterThumbnailMenu';
 
 /**
@@ -7,21 +9,23 @@ const CHAPTER_THUMBNAIL_MENU_NAME = 'ChapterThumbnailMenu';
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} options.name Component name
+ * @param {string} options.name Component name
  */
 
 const VjsMenu = videojs.getComponent('Menu');
 
 class ChapterThumbnailMenu extends VjsMenu {
-    constructor(player, options = {}) {
-        super(player, options);
+  constructor(player, options = {}) {
+    super(player, options);
 
-        this.el_.id = 'vjs_chapter_thumbnails_menu';
+    this.el_.id = 'vjs_chapter_thumbnails_menu';
 
-        // NOTE: does not have a className property
-        this.addClass('vjs-chapter-thumbnails-menu');
-    }
+    // NOTE: does not have a className property
+    this.addClass('vjs-chapter-thumbnails-menu');
+  }
 }
 
-export {CHAPTER_THUMBNAIL_MENU_NAME};
-export {ChapterThumbnailMenu};
+export {
+  CHAPTER_THUMBNAIL_MENU_NAME,
+  ChapterThumbnailMenu,
+};

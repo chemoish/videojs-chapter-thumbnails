@@ -1,7 +1,14 @@
+/* global videojs */
+
 import './videojs-chapter-thumbnail.scss';
 
-import {ChapterThumbnailMenuButton, CHAPTER_THUMBNAIL_MENU_BUTTON_NAME} from './menu/chapter-thumbnail-menu-button';
-import {TRACK_ID} from './track/text-track';
+import * as MenuChapterThumbnailMenuButton from './menu/chapter-thumbnail-menu-button';
+import TRACK_ID from './track/text-track';
+
+const {
+  CHAPTER_THUMBNAIL_MENU_BUTTON_NAME,
+  ChapterThumbnailMenuButton,
+} = MenuChapterThumbnailMenuButton;
 
 /**
  * @name Chapters Plugin
@@ -16,96 +23,96 @@ import {TRACK_ID} from './track/text-track';
  *
  * 00:00:00.000 --> 00:10:00.000
  * {
- *     "title":"Introduction",
- *     "image":"http://www.example.com/example.jpg"
+ *   "title":"Introduction",
+ *   "image":"http://www.example.com/example.jpg"
  * }
  *
  * @example
- * videojs('player_id', {
- *     plugins: {
- *         chapter_thumbnails: {
- *             label:    'English',
- *             language: 'en',
- *             src:      'chapters.vtt'
- *         }
+ * videojs('playerId', {
+ *   plugins: {
+ *     chapter_thumbnails: {
+ *       label: 'English',
+ *       language: 'en',
+ *       src: 'chapters.vtt'
  *     }
+ *   }
  * });
  *
  * videojs('player_id').chapter_thumbnails({
- *     label:    'English',
- *     language: 'en',
- *     src:      'chapters.vtt'
+ *   label: 'English',
+ *   language: 'en',
+ *   src: 'chapters.vtt'
  * });
  *
  * @param {Object} player VideoJS player
  * @param {Object} options={}
- * @param {Object} [options.label=English]
- * @param {Object} [options.language=en]
- * @param {Object} options.src
- * @param {Object} [options.template]
+ * @param {string} [options.label=English]
+ * @param {string} [options.language=en]
+ * @param {string} options.src
+ * @param {string} [options.template]
  */
 
 export default class ChapterThumbnails {
-    constructor(player, options = {}) {
-        const defaults = {
-            label:    'English',
-            language: 'en'
-        };
+  constructor(player, options = {}) {
+    const defaults = {
+      label: 'English',
+      language: 'en',
+    };
 
-        this.player = player;
+    this.player = player;
 
-        this.text_track = videojs.mergeOptions(defaults, options, {
-            default: true,
-            kind:    'metadata',
-            id:      TRACK_ID
-        });
+    this.textTrack = videojs.mergeOptions(defaults, options, {
+      default: true,
+      kind: 'metadata',
+      id: TRACK_ID,
+    });
 
-        this.template = this.text_track.template;
+    this.template = this.textTrack.template;
+  }
+
+  addComponent() {
+    const controlBar = this.player.getChild('controlBar');
+
+    const chapterButton = controlBar.getChild('chaptersButton');
+
+    let chapterThumbnailMenuButton = controlBar.getChild(CHAPTER_THUMBNAIL_MENU_BUTTON_NAME);
+
+    // remove existing menu—menu button will be hidden if there are no items found
+    if (chapterThumbnailMenuButton && chapterThumbnailMenuButton.menu) {
+      chapterThumbnailMenuButton.menu.dispose();
+
+      delete chapterThumbnailMenuButton.menu;
+    } else {
+      chapterThumbnailMenuButton = new ChapterThumbnailMenuButton(this.player, {
+        name: CHAPTER_THUMBNAIL_MENU_BUTTON_NAME,
+        template: this.template,
+      });
+
+      // add component to end of control bar
+      controlBar.addChild(chapterThumbnailMenuButton);
+
+      // move component—there is no component index placement
+      controlBar.el().insertBefore(chapterThumbnailMenuButton.el(), chapterButton.el());
     }
 
-    addComponent() {
-        let control_bar = this.player.getChild('controlBar');
+    this.addTextTrack();
+  }
 
-        let chapter_button = control_bar.getChild('chaptersButton');
+  addTextTrack() {
+    const currentTextTrack = this.player.remoteTextTracks().getTrackById(TRACK_ID);
 
-        let chapter_thumbnail_menu_button = control_bar.getChild(CHAPTER_THUMBNAIL_MENU_BUTTON_NAME);
-
-        // remove existing menu—menu button will be hidden if there are no items found
-        if (chapter_thumbnail_menu_button && chapter_thumbnail_menu_button.menu) {
-            chapter_thumbnail_menu_button.menu.dispose();
-
-            delete chapter_thumbnail_menu_button.menu;
-        } else {
-            chapter_thumbnail_menu_button = new ChapterThumbnailMenuButton(this.player, {
-                name: CHAPTER_THUMBNAIL_MENU_BUTTON_NAME,
-                template: this.template
-            });
-
-            // add component to end of control bar
-            control_bar.addChild(chapter_thumbnail_menu_button);
-
-            // move component—there is no component index placement
-            control_bar.el().insertBefore(chapter_thumbnail_menu_button.el(), chapter_button.el());
-        }
-
-        this.addTextTrack();
+    // remove existing track
+    if (currentTextTrack) {
+      this.player.removeRemoteTextTrack(currentTextTrack);
     }
 
-    addTextTrack() {
-        let current_text_track = this.player.remoteTextTracks().getTrackById(TRACK_ID);
-
-        // remove existing track
-        if (current_text_track) {
-            this.player.removeRemoteTextTrack(current_text_track);
-        }
-
-        // add new track
-        this.player.addRemoteTextTrack(this.text_track);
-    }
+    // add new track
+    this.player.addRemoteTextTrack(this.textTrack);
+  }
 }
 
-videojs.plugin('chapter_thumbnails', function chapter_thumbnails(options) {
-    let chapter_thumbnail = new ChapterThumbnails(this, options);
+videojs.plugin('chapter_thumbnails', function chapterThumbnails(options) {
+  const chapterThumbnail = new ChapterThumbnails(this, options);
 
-    chapter_thumbnail.addComponent();
+  chapterThumbnail.addComponent();
 });

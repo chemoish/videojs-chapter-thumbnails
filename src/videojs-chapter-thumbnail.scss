@@ -1,77 +1,73 @@
-@import 'compass';
-
 /* Chapter Thumbnails Menu — Hide by default */
 
 .vjs-menu.vjs-chapter-thumbnails-menu
 {
-    display: none;
+  display: none;
 }
 
 /* Chapter Thumbnails Menu — Show when video has started */
 
 .vjs-has-started .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-    @include transition((visibility 0.1s null null), (opacity 0.1s null null));
-
-    opacity:    1;
-    visibility: visible;
+  opacity: 1;
+  transition: visibility 0.1s, opacity 0.1s;
+  visibility: visible;
 }
 
 /* Chapter Thumbnails Menu — Hide when user becomes inactive */
 
 .vjs-has-started.vjs-user-inactive.vjs-playing .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-    @include transition((visibility 1s null null), (opacity 1s null null));
-
-    opacity:    0;
-    visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s, opacity 1s;
+  visibility: visible;
 }
 
 /* Chapter Thumbnails Menu */
 
 .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-    background-color: #2b333f;
-    background-color: rgba(43, 51, 63, 0.7);
-    bottom:           3em;
-    position:         absolute;
-    white-space:      nowrap;
-    width:            100%;
+  background-color: #2b333f;
+  background-color: rgba(43, 51, 63, 0.7);
+  bottom: 3em;
+  position: absolute;
+  white-space: nowrap;
+  width: 100%;
 }
 
 /* Chapter Thumbnails Menu Item */
 
 .vjs-menu .vjs-chapter-thumbnails-menu-item
 {
-    display:       inline-block;
-    margin-bottom: 2px;
-    padding:       2px;
-    width:         150px;
+  display: inline-block;
+  margin-bottom: 2px;
+  padding: 2px;
+  width: 150px;
 }
 
 .vjs-menu .vjs-chapter-thumbnails-menu-item:first-child
 {
-    margin-left: 2px;
+  margin-left: 2px;
 }
 
 .vjs-menu .vjs-chapter-thumbnails-menu-item:last-child
 {
-    margin-right: 2px;
+  margin-right: 2px;
 }
 
 /* Chapter Thumbnails Item */
 
 .vjs-chapters-thumbnails-item
 {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .vjs-chapters-thumbnails-item-image
 {
-    width: 100%;
+  width: 100%;
 }
 
 .vjs-chapters-thumbnails-item-title
 {
-    display: block;
+  display: block;
 }

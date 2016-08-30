@@ -1,57 +1,57 @@
 import chapterThumbnailTemplate from '../src/videojs-chapter-thumbnail-template';
 
-describe('chapter-thumbnail-template.js', function () {
-    it('should return the unaltered default template.', function () {
-        expect(chapterThumbnailTemplate({
-            text: null
-        })).toBe(
+describe('chapter-thumbnail-template.js', () => {
+  it('should return the unaltered default template.', () => {
+    expect(chapterThumbnailTemplate({
+      text: null,
+    })).toBe(
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
     <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
 </div>
 `
-        );
-    });
+    );
+  });
 
-    it('should return the modified default template.', function () {
-        expect(chapterThumbnailTemplate({
-            text: JSON.stringify({
-                image: 'http://example.com',
-                title: 'example'
-            })
-        })).toBe(
+  it('should return the modified default template.', () => {
+    expect(chapterThumbnailTemplate({
+      text: JSON.stringify({
+        image: 'http://example.com',
+        title: 'example',
+      }),
+    })).toBe(
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">example</span>
 </div>
 `
-        );
+    );
 
-        expect(chapterThumbnailTemplate({
-            text: JSON.stringify({
-                image: 'http://example.com'
-            })
-        })).toBe(
+    expect(chapterThumbnailTemplate({
+      text: JSON.stringify({
+        image: 'http://example.com',
+      }),
+    })).toBe(
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
     <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
 </div>
 `
-        );
-    });
+    );
+  });
 
-    it('should return the enhanced template.', function () {
-        expect(chapterThumbnailTemplate({
-            text: JSON.stringify({
-                description: 'example description',
-                image: 'http://example.com',
-                title: 'example title'
-            })
-        }, {
-            template: (
+  it('should return the enhanced template.', () => {
+    expect(chapterThumbnailTemplate({
+      text: JSON.stringify({
+        description: 'example description',
+        image: 'http://example.com',
+        title: 'example title',
+      }),
+    }, {
+      template: (
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
@@ -59,8 +59,8 @@ describe('chapter-thumbnail-template.js', function () {
     <p class="vjs-chapters-thumbnails-item-description">{{description}}</p>
 </div>
 `
-            )
-        })).toBe(
+      ),
+    })).toBe(
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
@@ -68,15 +68,15 @@ describe('chapter-thumbnail-template.js', function () {
     <p class="vjs-chapters-thumbnails-item-description">example description</p>
 </div>
 `
-        );
+    );
 
-        expect(chapterThumbnailTemplate({
-            text: JSON.stringify({
-                image: 'http://example.com',
-                title: 'example title'
-            })
-        }, {
-            template: (
+    expect(chapterThumbnailTemplate({
+      text: JSON.stringify({
+        image: 'http://example.com',
+        title: 'example title',
+      }),
+    }, {
+      template: (
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
@@ -84,8 +84,8 @@ describe('chapter-thumbnail-template.js', function () {
     <p class="vjs-chapters-thumbnails-item-description">{{title}}</p>
 </div>
 `
-            )
-        })).toBe(
+      ),
+    })).toBe(
 `
 <div class="vjs-chapters-thumbnails-item">
     <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
@@ -93,6 +93,6 @@ describe('chapter-thumbnail-template.js', function () {
     <p class="vjs-chapters-thumbnails-item-description">example title</p>
 </div>
 `
-        );
-    });
+    );
+  });
 });
