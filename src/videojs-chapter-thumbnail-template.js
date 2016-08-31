@@ -1,24 +1,71 @@
 const defaults = {
-  template: (
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-</div>
-`
-  ),
+  template(cueText = {}) {
+    const {
+      image,
+      title,
+    } = cueText;
+
+    const template = document.createElement('div');
+    template.className = 'vjs-chapters-thumbnails-item';
+
+    if (image) {
+      const img = document.createElement('img');
+      img.className = 'vjs-chapters-thumbnails-item-image';
+      img.src = image;
+
+      template.appendChild(img);
+    }
+
+    if (title) {
+      const span = document.createElement('span');
+      span.className = 'vjs-chapters-thumbnails-item-title';
+      span.innerHTML = title;
+
+      template.appendChild(span);
+    }
+
+    return template;
+  },
 };
 
+/**
+ * @name Chapter Thumbnail Template
+ * @description
+ * Converts the WebVTT cue into an HTMLElement template.
+ *
+ * @example
+ * chapterThumbnailTemplate({
+ *   text: '{"title":"Hello World"}',
+ * }, {
+ *   template(cueText) {
+ *     const template = document.createElement('div');
+ *
+ *     template.innerHTML = cueText.title;
+ *
+ *     return template;
+ *   }
+ * });
+ *
+ * @param {TextTrackCue} cue={}
+ * @param {Object} options={}
+ * @param {Function} [options.template]
+ * @returns {HTMLElement|string} template
+ */
+
 function chapterThumbnailTemplate(cue = {}, options = {}) {
-  let template = options.template || defaults.template;
+  const template = options.template || defaults.template;
 
-  const cueText = JSON.parse(cue.text || '{}');
+  let cueText;
 
-  Object.keys(cueText).forEach(key => {
-    template = template.replace(new RegExp(`{{${key}}}`, 'ig'), cueText[key]);
-  });
+  // NOTE: if `cue.text` isn't parseable, just send it through instead of blowing up.
+  // DRAGON: this probably opens up a possible script injection
+  try {
+    cueText = JSON.parse(cue.text || '{}');
+  } catch (e) {
+    cueText = cue.text;
+  }
 
-  return template;
+  return template(cueText);
 }
 
 export default chapterThumbnailTemplate;

@@ -49,7 +49,7 @@ const {
  * @param {string} [options.label=English]
  * @param {string} [options.language=en]
  * @param {string} options.src
- * @param {string} [options.template]
+ * @param {Function} [options.template] Generates template for chapter thumbnail menu item
  */
 
 export default class ChapterThumbnails {

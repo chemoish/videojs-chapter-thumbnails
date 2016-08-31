@@ -1,16 +1,23 @@
 import chapterThumbnailTemplate from '../src/videojs-chapter-thumbnail-template';
 
+function trim(string) {
+  return string.replace(/>[\s]+</g, '><').trim();
+}
+
 describe('chapter-thumbnail-template.js', () => {
-  it('should return the unaltered default template.', () => {
+  let customTemplate;
+
+  beforeEach(() => {
+    customTemplate = document.createElement('div');
+  });
+
+  it('should return an empty default template.', () => {
     expect(chapterThumbnailTemplate({
       text: null,
-    })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-</div>
-`
+    }).outerHTML).toBe(
+      trim(`
+        <div class="vjs-chapters-thumbnails-item"></div>
+      `)
     );
   });
 
@@ -20,79 +27,64 @@ describe('chapter-thumbnail-template.js', () => {
         image: 'http://example.com',
         title: 'example',
       }),
-    })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">example</span>
-</div>
-`
+    }).outerHTML).toBe(
+      trim(`
+        <div class="vjs-chapters-thumbnails-item">
+          <img class="vjs-chapters-thumbnails-item-image" src="http://example.com">
+          <span class="vjs-chapters-thumbnails-item-title">example</span>
+        </div>
+      `)
     );
 
     expect(chapterThumbnailTemplate({
       text: JSON.stringify({
         image: 'http://example.com',
       }),
-    })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-</div>
-`
+    }).outerHTML).toBe(
+      trim(`
+        <div class="vjs-chapters-thumbnails-item">
+          <img class="vjs-chapters-thumbnails-item-image" src="http://example.com">
+        </div>
+      `)
     );
   });
 
-  it('should return the enhanced template.', () => {
+  it('should return a custom template.', () => {
     expect(chapterThumbnailTemplate({
       text: JSON.stringify({
         description: 'example description',
-        image: 'http://example.com',
-        title: 'example title',
       }),
     }, {
-      template: (
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-    <p class="vjs-chapters-thumbnails-item-description">{{description}}</p>
-</div>
-`
-      ),
-    })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">example title</span>
-    <p class="vjs-chapters-thumbnails-item-description">example description</p>
-</div>
-`
-    );
+      template(cueText) {
+        const span = document.createElement('span');
+        span.innerHTML = cueText.description;
 
+        customTemplate.appendChild(span);
+
+        return customTemplate;
+      },
+    }).outerHTML).toBe(
+      trim(`
+        <div>
+          <span>example description</span>
+        </div>
+      `)
+    );
+  });
+
+  it('should return an template for invalid JSON.', () => {
     expect(chapterThumbnailTemplate({
-      text: JSON.stringify({
-        image: 'http://example.com',
-        title: 'example title',
-      }),
+      text: 'example title',
     }, {
-      template: (
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-    <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-    <p class="vjs-chapters-thumbnails-item-description">{{title}}</p>
-</div>
-`
-      ),
-    })).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">example title</span>
-    <p class="vjs-chapters-thumbnails-item-description">example title</p>
-</div>
-`
+      template(cueText) {
+        customTemplate.innerHTML = cueText;
+
+        return customTemplate;
+      },
+    }).outerHTML).toBe(
+      trim(`
+        <div>example title</div>
+      `)
     );
   });
 });

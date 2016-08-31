@@ -10,7 +10,7 @@ import chapterThumbnailTemplate from '../videojs-chapter-thumbnail-template';
  * @param {Object} player VideoJS player
  * @param {Object} options={}
  * @param {TextTrackCue} options.cue
- * @param {string} [options.template]
+ * @param {Function} [options.template] Generates template for chapter thumbnail menu item
  * @param {TextTrack} options.textTrack
  */
 
@@ -28,13 +28,30 @@ class ChapterThumbnailMenuItem extends VjsMenuItem {
     super(player, {
       ...options,
 
-      label: chapterThumbnailTemplate(cue, options),
       selected: (cue.startTime <= currentTime && currentTime < cue.endTime),
+      template: chapterThumbnailTemplate(cue, options),
     });
 
-    this.addClass('vjs-chapter-thumbnails-menu-item');
-
     textTrack.addEventListener('cuechange', videojs.bind(this, this.onCueChange));
+  }
+
+  createEl(type, props, attrs) {
+    const { template } = this.options_;
+
+    const el = super.createEl('li', Object.assign({
+      className: 'vjs-menu-item vjs-chapter-thumbnails-menu-item',
+      innerHTML: '', // does this need to be localized?
+      tabIndex: -1,
+    }, props), attrs);
+
+    // allow HTMLElement and string #iguess?
+    if (template instanceof HTMLElement) {
+      el.insertBefore(template, el.firstChild);
+    } else if (typeof template === 'string') {
+      el.innerHTML = template;
+    }
+
+    return el;
   }
 
   /**
