@@ -45,17 +45,40 @@ Type: `string`
 
 #### template
 
-Type: `string`  
+Type: `Function`  
 Default:
 
-```html
-<div class="vjs-chapters-thumbnails-item">
-  <img class="vjs-chapters-thumbnails-item-image" src="{{image}}" />
-  <span class="vjs-chapters-thumbnails-item-title">{{title}}</span>
-</div>
+```js
+template(cueText = {}) {
+  const {
+    image,
+    title,
+  } = cueText;
+
+  const template = document.createElement('div');
+  template.className = 'vjs-chapters-thumbnails-item';
+
+  if (image) {
+    const img = document.createElement('img');
+    img.className = 'vjs-chapters-thumbnails-item-image';
+    img.src = image;
+
+    template.appendChild(img);
+  }
+
+  if (title) {
+    const span = document.createElement('span');
+    span.className = 'vjs-chapters-thumbnails-item-title';
+    span.innerHTML = title;
+
+    template.appendChild(span);
+  }
+
+  return template;
+},
 ```
 
-Provides for custom templating. Utilize `{{key}}` to target values in your WebVTT file.
+Provides for custom chapter templating. Must return either `HTMLElement` or `string`.
 
 ## Example WebVTT file
 

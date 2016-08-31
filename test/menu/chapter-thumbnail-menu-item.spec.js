@@ -2,6 +2,10 @@
 
 import ChapterThumbnailMenuItem from '../../src/menu/chapter-thumbnail-menu-item';
 
+function trim(string) {
+  return string.replace(/>[\s]+</g, '><').trim();
+}
+
 describe('menu-item.js', () => {
   describe(':: template()', () => {
     let player;
@@ -39,13 +43,13 @@ describe('menu-item.js', () => {
         },
       });
 
-      expect(menuItem.options_.label).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">example</span>
-</div>
-`
+      expect(menuItem.options_.template.outerHTML).toBe(
+        trim(`
+          <div class="vjs-chapters-thumbnails-item">
+            <img class="vjs-chapters-thumbnails-item-image" src="http://example.com">
+            <span class="vjs-chapters-thumbnails-item-title">example</span>
+          </div>
+        `)
       );
 
       expect(menuItem.options_.selected).toBe(false);
@@ -68,13 +72,13 @@ describe('menu-item.js', () => {
         },
       });
 
-      expect(menuItem.options_.label).toBe(
-`
-<div class="vjs-chapters-thumbnails-item">
-    <img class="vjs-chapters-thumbnails-item-image" src="http://example.com" />
-    <span class="vjs-chapters-thumbnails-item-title">example</span>
-</div>
-`
+      expect(menuItem.options_.template.outerHTML).toBe(
+        trim(`
+          <div class="vjs-chapters-thumbnails-item">
+            <img class="vjs-chapters-thumbnails-item-image" src="http://example.com">
+            <span class="vjs-chapters-thumbnails-item-title">example</span>
+          </div>
+        `)
       );
 
       expect(menuItem.options_.selected).toBe(true);
