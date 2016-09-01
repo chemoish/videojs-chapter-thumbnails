@@ -28,6 +28,7 @@ class ChapterThumbnailMenuItem extends VjsMenuItem {
     super(player, {
       ...options,
 
+      selectable: true, // piggy back onto `MenuItem::vjs-selected`
       selected: (cue.startTime <= currentTime && currentTime < cue.endTime),
       template: chapterThumbnailTemplate(cue, options),
     });
