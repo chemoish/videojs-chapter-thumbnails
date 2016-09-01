@@ -1,6 +1,6 @@
 {
   "name": "videojs-chapter-thumbnails",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Video.js plugin for supporting chapter thumbnails",
   "main": "./dist/videojs.chapter-thumbnails.min.js",
   "style": "./dist/videojs.chapter-thumbnails.min.css",
