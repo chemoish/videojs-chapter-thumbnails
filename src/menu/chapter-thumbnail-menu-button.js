@@ -117,7 +117,7 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
         this.menu.addChild(this.items[i]);
       }
 
-      this.player().addChild(this.menu);
+      this.addChild(this.menu);
 
       if (this.items.length > 0) {
         this.show();
