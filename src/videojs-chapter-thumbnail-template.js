@@ -1,5 +1,15 @@
 const defaults = {
-  template(cueText = {}) {
+  template(cue = {}) {
+    let cueText;
+
+    // NOTE: if `cue.text` isn't parseable, just send it through instead of blowing up.
+    // DRAGON: this probably opens up a possible script injection
+    try {
+      cueText = JSON.parse(cue.text || '{}');
+    } catch (e) {
+      cueText = cue.text;
+    }
+
     const {
       image,
       title,
@@ -37,7 +47,17 @@ const defaults = {
  * chapterThumbnailTemplate({
  *   text: '{"title":"Hello World"}',
  * }, {
- *   template(cueText) {
+ *   template(cue) {
+ *     let cueText;
+ *
+ *     // NOTE: if `cue.text` isn't parseable, just send it through instead of blowing up.
+ *     // DRAGON: this probably opens up a possible script injection
+ *     try {
+ *       cueText = JSON.parse(cue.text || '{}');
+ *     } catch (e) {
+ *       cueText = cue.text;
+ *     }
+ *
  *     const template = document.createElement('div');
  *
  *     template.innerHTML = cueText.title;
@@ -55,17 +75,7 @@ const defaults = {
 function chapterThumbnailTemplate(cue = {}, options = {}) {
   const template = options.template || defaults.template;
 
-  let cueText;
-
-  // NOTE: if `cue.text` isn't parseable, just send it through instead of blowing up.
-  // DRAGON: this probably opens up a possible script injection
-  try {
-    cueText = JSON.parse(cue.text || '{}');
-  } catch (e) {
-    cueText = cue.text;
-  }
-
-  return template(cueText);
+  return template(cue);
 }
 
 export default chapterThumbnailTemplate;
