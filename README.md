@@ -49,7 +49,17 @@ Type: `Function`
 Default:
 
 ```js
-template(cueText = {}) {
+template(cue = {}) {
+  let cueText;
+
+  // NOTE: if `cue.text` isn't parseable, just send it through instead of blowing up.
+  // DRAGON: this probably opens up a possible script injection
+  try {
+    cueText = JSON.parse(cue.text || '{}');
+  } catch (e) {
+    cueText = cue.text;
+  }
+
   const {
     image,
     title,
