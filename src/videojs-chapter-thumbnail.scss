@@ -1,58 +1,58 @@
-/* Chapter Thumbnails Menu — Hide by default */
-
-.vjs-menu.vjs-chapter-thumbnails-menu
-{
-  display: none;
-}
-
-/* Chapter Thumbnails Menu — Show when video has started */
-
-.vjs-has-started .vjs-chapter-thumbnails-menu .vjs-menu-content
-{
-  opacity: 1;
-  transition: visibility 0.1s, opacity 0.1s;
-  visibility: visible;
-}
-
-/* Chapter Thumbnails Menu — Hide when user becomes inactive */
-
-.vjs-has-started.vjs-user-inactive.vjs-playing .vjs-chapter-thumbnails-menu .vjs-menu-content
-{
-  opacity: 0;
-  transition: visibility 1s, opacity 1s;
-  visibility: visible;
-}
-
 /* Chapter Thumbnails Menu */
+
+.vjs-chapter-thumbnails-menu
+{
+  .vjs-menu-button-popup &
+  {
+    left: auto;
+    right: 0;
+    width: auto;
+  }
+
+  .vjs-workinghover .vjs-menu-button-popup:hover &
+  {
+    display: none;
+  }
+}
+
+/* Chapter Thumbnails Menu Content */
 
 .vjs-chapter-thumbnails-menu .vjs-menu-content
 {
-  background-color: #2b333f;
-  background-color: rgba(43, 51, 63, 0.7);
-  bottom: 3em;
-  position: absolute;
-  white-space: nowrap;
-  width: 100%;
+  /* Chapter Thumbnails Menu — Show when video has started */
+
+  .vjs-has-started &
+  {
+    opacity: 1;
+    transition: visibility 0.1s, opacity 0.1s;
+    visibility: visible;
+  }
+
+  /* Chapter Thumbnails Menu — Hide when user becomes inactive */
+
+  .vjs-has-started.vjs-user-inactive.vjs-playing &
+  {
+    opacity: 0;
+    transition: visibility 1s, opacity 1s;
+    visibility: visible;
+  }
+
+  .vjs-menu-button-popup &
+  {
+    border-radius: 3px;
+    bottom: 3em;
+    overflow-y: auto;
+    right: 0;
+    white-space: nowrap;
+    width: 240px;
+  }
 }
 
 /* Chapter Thumbnails Menu Item */
 
 .vjs-menu .vjs-chapter-thumbnails-menu-item
 {
-  display: inline-block;
-  margin-bottom: 2px;
-  padding: 2px;
-  width: 150px;
-}
-
-.vjs-menu .vjs-chapter-thumbnails-menu-item:first-child
-{
-  margin-left: 2px;
-}
-
-.vjs-menu .vjs-chapter-thumbnails-menu-item:last-child
-{
-  margin-right: 2px;
+  padding: 0;
 }
 
 /* Chapter Thumbnails Item */
@@ -60,14 +60,20 @@
 .vjs-chapters-thumbnails-item
 {
   cursor: pointer;
+  overflow: hidden;
+  padding: 5px 5px 10px;
+  text-align: left;
 }
 
 .vjs-chapters-thumbnails-item-image
 {
-  width: 100%;
+  float: left;
+  margin-right: 10px;
+  width: 70px;
 }
 
 .vjs-chapters-thumbnails-item-title
 {
   display: block;
+  text-transform: capitalize;
 }
