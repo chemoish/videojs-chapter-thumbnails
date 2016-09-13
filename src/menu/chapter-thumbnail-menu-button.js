@@ -159,23 +159,6 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
   }
 
   /**
-   * @name Handle Click
-   * @description
-   * Defined by videojs.MenuButton
-   */
-
-  handleClick() {
-    // TODO: not sure if there is a better way to determine visibility
-    if (this.menu.hasClass('vjs-lock-showing')) {
-      this.menu.unlockShowing();
-    } else {
-      this.menu.lockShowing();
-    }
-
-    this.player().el().focus();
-  }
-
-  /**
    * @name Update
    * @description
    * Defined by videojs.MenuButton
