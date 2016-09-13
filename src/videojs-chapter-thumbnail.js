@@ -83,7 +83,11 @@ export default class ChapterThumbnails {
 
       delete chapterThumbnailMenuButton.menu;
     } else {
-      chapterThumbnailMenuButton = new ChapterThumbnailMenuButton(this.player, {
+      const MenuButton = (
+        videojs.getComponent('ChapterThumbnailMenuButton') || ChapterThumbnailMenuButton
+      );
+
+      chapterThumbnailMenuButton = new MenuButton(this.player, {
         name: CHAPTER_THUMBNAIL_MENU_BUTTON_NAME,
         template: this.template,
       });

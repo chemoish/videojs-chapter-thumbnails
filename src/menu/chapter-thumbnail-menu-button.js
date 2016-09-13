@@ -77,7 +77,9 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
 
     // cache menu during create menu dance
     if (!this.menu) {
-      this.menu = new ChapterThumbnailMenu(this.player(), {
+      const Menu = videojs.getComponent('ChapterThumbnailMenu') || ChapterThumbnailMenu;
+
+      this.menu = new Menu(this.player(), {
         name: CHAPTER_THUMBNAIL_MENU_NAME,
       });
     }
@@ -145,10 +147,12 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
       template,
     } = this.options_;
 
+    const MenuItem = videojs.getComponent('ChapterThumbnailMenuItem') || ChapterThumbnailMenuItem;
+
     for (let i = 0, length = textTrack.cues.length; i < length; i++) {
       const cue = textTrack.cues[i];
 
-      items.push(new ChapterThumbnailMenuItem(this.player(), {
+      items.push(new MenuItem(this.player(), {
         cue,
         template,
         textTrack,
@@ -183,6 +187,8 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
 }
 
 ChapterThumbnailMenuButton.prototype.controlText_ = 'Chapters';
+
+videojs.registerComponent('ChapterThumbnailMenuButton', ChapterThumbnailMenuButton);
 
 export {
   CHAPTER_THUMBNAIL_MENU_BUTTON_NAME,
