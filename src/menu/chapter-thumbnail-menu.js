@@ -25,6 +25,8 @@ class ChapterThumbnailMenu extends VjsMenu {
   }
 }
 
+videojs.registerComponent('ChapterThumbnailMenu', ChapterThumbnailMenu);
+
 export {
   CHAPTER_THUMBNAIL_MENU_NAME,
   ChapterThumbnailMenu,

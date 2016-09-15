@@ -8,11 +8,6 @@
     right: 0;
     width: auto;
   }
-
-  .vjs-workinghover .vjs-menu-button-popup:hover &
-  {
-    display: none;
-  }
 }
 
 /* Chapter Thumbnails Menu Content */
@@ -40,7 +35,6 @@
   .vjs-menu-button-popup &
   {
     border-radius: 3px;
-    bottom: 3em;
     overflow-y: auto;
     right: 0;
     white-space: nowrap;
