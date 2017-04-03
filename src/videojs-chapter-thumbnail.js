@@ -111,7 +111,7 @@ export default class ChapterThumbnails {
     }
 
     // add new track
-    this.player.addRemoteTextTrack(this.textTrack);
+    this.player.addRemoteTextTrack(this.textTrack, true);
   }
 }
 
