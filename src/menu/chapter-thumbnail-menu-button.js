@@ -68,44 +68,25 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
    */
 
   createMenu() {
-    let chapterTrack;
-    let track;
-
-    const tracks = this.player().remoteTextTracks() || [];
-
+    // need to initialize `this.items` because this gets called in a `super`
+    // before this constructor gets called
     this.items = [];
 
-    // cache menu during create menu dance
-    if (!this.menu) {
-      const Menu = videojs.getComponent('ChapterThumbnailMenu') || ChapterThumbnailMenu;
+    // NOTE: allow custom `ChapterThumbnailMenu`
+    const Menu = videojs.getComponent('ChapterThumbnailMenu') || ChapterThumbnailMenu;
 
-      this.menu = new Menu(this.player(), {
-        name: CHAPTER_THUMBNAIL_MENU_NAME,
-      });
-    }
+    const menu = new Menu(this.player(), {
+      name: CHAPTER_THUMBNAIL_MENU_NAME,
+    });
 
-    for (let i = 0, length = tracks.length; i < length; i++) {
-      track = tracks[i];
-
-      if (track.id === TRACK_ID) {
-        chapterTrack = track;
-
-        break;
-      }
-    }
+    const chapterTrack = this.findChaptersTrack();
 
     if (!chapterTrack) {
-      return this.menu;
+      return menu;
     }
 
     if (chapterTrack && chapterTrack.cues == null) {
-      track.mode = 'hidden';
-
-      const remoteTextTrackEl = this.player().remoteTextTrackEls().getTrackElementByTrack_(track);
-
-      if (remoteTextTrackEl) {
-        remoteTextTrackEl.addEventListener('load', () => this.createMenu());
-      }
+      this.setTrack(chapterTrack);
     }
 
     // create menu if track cues are available
@@ -116,17 +97,15 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
         // TODO: enables - onClick close menu
         // menu.addItem(this.items[i]);
 
-        this.menu.addChild(this.items[i]);
+        menu.addChild(this.items[i]);
       }
-
-      this.addChild(this.menu);
 
       if (this.items.length > 0) {
         this.show();
       }
     }
 
-    return this.menu;
+    return menu;
   }
 
   /**
@@ -147,6 +126,7 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
       template,
     } = this.options_;
 
+    // NOTE: allow custom `ChapterThumbnailMenuItem`
     const MenuItem = videojs.getComponent('ChapterThumbnailMenuItem') || ChapterThumbnailMenuItem;
 
     for (let i = 0, length = textTrack.cues.length; i < length; i++) {
@@ -162,27 +142,38 @@ class ChapterThumbnailMenuButton extends VjsMenuButton {
     return items;
   }
 
-  /**
-   * @name Update
-   * @description
-   * Defined by videojs.MenuButton
-   *
-   * Must override so that the menu isn't attached to the videojs.MenuButton.
-   * Instead we will manage it ourselves by adding it to the player directly.
-   */
+  findChaptersTrack() {
+    const tracks = this.player().remoteTextTracks() || [];
 
-  update() {
-    const menu = this.createMenu();
+    for (let i = 0, length = tracks.length; i < length; i++) {
+      const track = tracks[i];
 
-    this.menu = menu;
-
-    this.buttonPressed_ = false;
-
-    if (this.items && this.items.length === 0) {
-      this.hide();
-    } else if (this.items && this.items.length > 1) {
-      this.show();
+      if (track.id === TRACK_ID) {
+        return track;
+      }
     }
+
+    return undefined;
+  }
+
+  setTrack(track) {
+    if (!track) {
+      return;
+    }
+
+    this.track = track;
+
+    this.track.mode = 'hidden';
+
+    const remoteTextTrackEl = this.player().remoteTextTrackEls().getTrackElementByTrack_(
+      this.track
+    );
+
+    if (!remoteTextTrackEl) {
+      return;
+    }
+
+    remoteTextTrackEl.addEventListener('load', () => this.update());
   }
 }
 
